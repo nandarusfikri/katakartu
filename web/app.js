@@ -9,8 +9,7 @@ let gameState = null;
 let canPlay = true;
 let selectedPrefixCards = [];
 let selectedSuffixCards = [];
-let draggedCard = null;
-let dragSource = null;
+let selectedFromHand = null;
 
 function connect() {
     ws = new WebSocket(WS_URL);
@@ -111,13 +110,7 @@ function createRoom() {
     connect();
 
     ws.onopen = () => {
-        console.log('WS connected, sending create_room');
         send({ type: 'create_room', payload: { username } });
-    };
-
-    ws.onerror = (error) => {
-        console.error('WS error:', error);
-        showToast('Koneksi gagal', 'error');
     };
 }
 
@@ -135,13 +128,7 @@ function joinRoom() {
     connect();
 
     ws.onopen = () => {
-        console.log('WS connected, sending join_room');
         send({ type: 'join_room', payload: { username, roomCode: code } });
-    };
-
-    ws.onerror = (error) => {
-        console.error('WS error:', error);
-        showToast('Koneksi gagal', 'error');
     };
 }
 
@@ -179,23 +166,7 @@ function updateZoneDisplay(zoneId, cards, zoneType) {
             cardEl.textContent = card;
             cardEl.dataset.syllable = card;
             cardEl.dataset.index = index;
-            cardEl.draggable = true;
             
-            cardEl.addEventListener('dragstart', (e) => {
-                e.stopPropagation();
-                draggedCard = card;
-                dragSource = { zone: zoneType, index: index };
-                e.target.classList.add('dragging');
-                e.dataTransfer.setData('text/plain', card);
-                e.dataTransfer.effectAllowed = 'move';
-            });
-
-            cardEl.addEventListener('dragend', (e) => {
-                e.target.classList.remove('dragging');
-                draggedCard = null;
-                dragSource = null;
-            });
-
             cardEl.addEventListener('click', (e) => {
                 e.stopPropagation();
                 removeCardFromZone(zoneType, index);
@@ -215,6 +186,23 @@ function removeCardFromZone(zoneType, index) {
     }
     updatePreview();
     renderHand();
+}
+
+function addSelectedToZone(zoneType) {
+    if (selectedFromHand) {
+        if (zoneType === 'prefix') {
+            if (!selectedPrefixCards.includes(selectedFromHand)) {
+                selectedPrefixCards.push(selectedFromHand);
+            }
+        } else {
+            if (!selectedSuffixCards.includes(selectedFromHand)) {
+                selectedSuffixCards.push(selectedFromHand);
+            }
+        }
+        selectedFromHand = null;
+        updatePreview();
+        renderHand();
+    }
 }
 
 function updateWordPreview() {
@@ -300,6 +288,7 @@ function hideVotePopup() {
 function clearSelection() {
     selectedPrefixCards = [];
     selectedSuffixCards = [];
+    selectedFromHand = null;
     updatePreview();
     renderHand();
 }
@@ -347,6 +336,7 @@ function updateGame() {
     showScreen('game');
     selectedPrefixCards = [];
     selectedSuffixCards = [];
+    selectedFromHand = null;
     canPlay = true;
     updatePreview();
     renderHand();
@@ -386,81 +376,36 @@ function renderHand() {
         cardEl.className = 'hand-card';
         cardEl.textContent = syllable;
         cardEl.dataset.syllable = syllable;
-        cardEl.draggable = true;
+        
+        if (selectedFromHand === syllable) {
+            cardEl.classList.add('selected-from-hand');
+        }
 
-        cardEl.addEventListener('dragstart', (e) => {
-            draggedCard = syllable;
-            dragSource = { zone: 'hand', card: syllable };
-            e.target.classList.add('dragging');
-            e.dataTransfer.setData('text/plain', syllable);
-            e.dataTransfer.effectAllowed = 'move';
-        });
-
-        cardEl.addEventListener('dragend', (e) => {
-            e.target.classList.remove('dragging');
-            draggedCard = null;
-            dragSource = null;
+        cardEl.addEventListener('click', () => {
+            if (selectedFromHand === syllable) {
+                selectedFromHand = null;
+            } else {
+                selectedFromHand = syllable;
+            }
+            renderHand();
         });
 
         hand.appendChild(cardEl);
     });
 }
 
-function setupDropZones() {
+function setupClickZones() {
     const prefixZone = document.getElementById('prefix-zone');
     const suffixZone = document.getElementById('suffix-zone');
 
-    [prefixZone, suffixZone].forEach(zone => {
-        const zoneType = zone.id === 'prefix-zone' ? 'prefix' : 'suffix';
-
-        zone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-            zone.classList.add('drag-over');
-        });
-
-        zone.addEventListener('dragleave', (e) => {
-            zone.classList.remove('drag-over');
-        });
-
-        zone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            zone.classList.remove('drag-over');
-
-            const card = e.dataTransfer.getData('text/plain');
-            if (!card) return;
-
-            if (dragSource && dragSource.zone !== 'hand') {
-                removeCardFromZone(dragSource.zone, dragSource.index);
-            }
-
-            if (zoneType === 'prefix') {
-                if (!selectedPrefixCards.includes(card)) {
-                    selectedPrefixCards.push(card);
-                }
-            } else {
-                if (!selectedSuffixCards.includes(card)) {
-                    selectedSuffixCards.push(card);
-                }
-            }
-
-            updatePreview();
-            renderHand();
-        });
+    prefixZone.addEventListener('click', () => {
+        if (!canPlay) return;
+        addSelectedToZone('prefix');
     });
 
-    document.getElementById('player-hand').addEventListener('dragover', (e) => {
-        if (dragSource && dragSource.zone !== 'hand') {
-            e.preventDefault();
-            e.dataTransfer.dropEffect = 'move';
-        }
-    });
-
-    document.getElementById('player-hand').addEventListener('drop', (e) => {
-        e.preventDefault();
-        if (dragSource && dragSource.zone !== 'hand') {
-            removeCardFromZone(dragSource.zone, dragSource.index);
-        }
+    suffixZone.addEventListener('click', () => {
+        if (!canPlay) return;
+        addSelectedToZone('suffix');
     });
 }
 
@@ -487,6 +432,7 @@ function handlePlayResult(payload) {
         canPlay = true;
         selectedPrefixCards = [];
         selectedSuffixCards = [];
+        selectedFromHand = null;
         messageEl.classList.add('hidden');
         updatePreview();
         renderHand();
@@ -503,24 +449,6 @@ function disconnect() {
     showScreen('landing');
 }
 
-function showWords() {
-    fetch('/words')
-        .then(res => res.text())
-        .then(text => {
-            const words = text.split('\n').filter(w => w.trim());
-            const list = document.getElementById('words-list');
-            list.innerHTML = words.map(w => `<span>${w}</span>`).join('');
-            document.getElementById('words-modal').classList.remove('hidden');
-        })
-        .catch(err => {
-            showToast('Gagal memuat kata', 'error');
-        });
-}
-
-function closeWords() {
-    document.getElementById('words-modal').classList.add('hidden');
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-    setupDropZones();
+    setupClickZones();
 });
