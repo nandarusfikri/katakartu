@@ -7,6 +7,7 @@ import (
 	"encoding/json"
 	"github.com/gorilla/websocket"
 	"log"
+	"time"
 )
 
 type Handler struct {
@@ -29,8 +30,10 @@ func (h *Handler) HandleMessage(conn *websocket.Conn, msg types.WsMessage) {
 		h.handlePlayCards(conn, msg.Payload)
 	case "draw_card":
 		h.handleDrawCard(conn)
-	case "change_main_card":
-		h.handleChangeMainCard(conn)
+	case "request_change_main":
+		h.handleRequestChangeMain(conn, msg.Payload)
+	case "vote_response":
+		h.handleVoteResponse(conn, msg.Payload)
 	default:
 		h.sendError(conn, "unknown message type: "+msg.Type)
 	}
@@ -160,19 +163,10 @@ func (h *Handler) handlePlayCards(conn *websocket.Conn, payload interface{}) {
 
 	data, _ := json.Marshal(payload)
 	var req struct {
-		Cards    []string `json:"cards"`
-		Position string   `json:"position"`
+		PrefixCards []string `json:"prefixCards"`
+		SuffixCards []string `json:"suffixCards"`
 	}
 	json.Unmarshal(data, &req)
-
-	if len(req.Cards) == 0 {
-		h.sendError(conn, "pilihMinimal satu kartu")
-		return
-	}
-
-	if req.Position != "prefix" && req.Position != "suffix" {
-		req.Position = "suffix"
-	}
 
 	game := h.hub.GetGame(client.RoomCode)
 	if game == nil {
@@ -180,11 +174,12 @@ func (h *Handler) handlePlayCards(conn *websocket.Conn, payload interface{}) {
 		return
 	}
 
-	result := game.PlayCards(client.ID, req.Cards, req.Position)
+	result := game.PlayCards(client.ID, req.PrefixCards, req.SuffixCards)
 
 	if !result.Valid {
 		h.sendError(conn, result.Message)
 		h.broadcastPlayResult(client.RoomCode, client.ID, result)
+		h.broadcastGameState(client.RoomCode)
 		return
 	}
 
@@ -221,7 +216,7 @@ func (h *Handler) handleDrawCard(conn *websocket.Conn) {
 	h.broadcastGameState(client.RoomCode)
 }
 
-func (h *Handler) handleChangeMainCard(conn *websocket.Conn) {
+func (h *Handler) handleRequestChangeMain(conn *websocket.Conn, payload interface{}) {
 	client := h.hub.GetClient(conn)
 	if client == nil || client.RoomCode == "" {
 		h.sendError(conn, "not in a room")
@@ -234,15 +229,145 @@ func (h *Handler) handleChangeMainCard(conn *websocket.Conn) {
 		return
 	}
 
-	oldCard, err := game.ChangeMainCard()
-	if err != nil {
-		h.sendError(conn, err.Error())
+	if game.PendingVote != nil {
+		h.sendError(conn, "sedang ada voting aktif")
 		return
 	}
 
-	log.Printf("Player %s changed main card from %s to %s", client.Username, oldCard, game.MainCard)
+	vote := game.CreateVote(client.ID, client.Username)
+	if vote == nil {
+		h.sendError(conn, "gagal membuat voting")
+		return
+	}
 
-	h.broadcastGameState(client.RoomCode)
+	h.broadcastVoteRequest(client.RoomCode, vote)
+
+	go h.checkAndExecuteVote(client.RoomCode)
+}
+
+func (h *Handler) handleVoteResponse(conn *websocket.Conn, payload interface{}) {
+	client := h.hub.GetClient(conn)
+	if client == nil {
+		return
+	}
+
+	data, _ := json.Marshal(payload)
+	var req struct {
+		Approved bool `json:"approved"`
+	}
+	json.Unmarshal(data, &req)
+
+	game := h.hub.GetGame(client.RoomCode)
+	if game == nil {
+		return
+	}
+
+	processed, _ := game.ProcessVoteResponse(client.ID, req.Approved)
+	if processed {
+		h.broadcastVoteProgress(client.RoomCode, game.PendingVote)
+	}
+}
+
+func (h *Handler) checkAndExecuteVote(roomCode string) {
+	time.Sleep(5 * time.Second)
+
+	game := h.hub.GetGame(roomCode)
+	if game == nil {
+		return
+	}
+
+	vote := game.ExecuteVoteIfExpired()
+	if vote == nil {
+		return
+	}
+
+	success := game.ExecuteVote(vote)
+
+	h.broadcastVoteResult(roomCode, vote, success)
+
+	if success {
+		h.broadcastGameState(roomCode)
+	}
+
+	log.Printf("Vote completed: approve=%d, reject=%d, success=%v",
+		len(vote.Approves), len(vote.Rejects), success)
+}
+
+func (h *Handler) broadcastVoteRequest(roomCode string, vote *game.VoteSession) {
+	room := h.hub.GetRoom(roomCode)
+	if room == nil {
+		return
+	}
+
+	msg := types.WsMessage{
+		Type: "vote_request",
+		Payload: types.VoteRequestPayload{
+			InitiatorName: vote.InitiatorName,
+			NewMainCard:   vote.NewMainCard,
+			OldMainCard:   vote.OldMainCard,
+			TotalPlayers:  vote.TotalPlayers,
+			SecondsLeft:   5,
+		},
+	}
+
+	for conn := range room.Clients {
+		conn.WriteJSON(msg)
+	}
+}
+
+func (h *Handler) broadcastVoteProgress(roomCode string, vote *game.VoteSession) {
+	if vote == nil {
+		return
+	}
+
+	room := h.hub.GetRoom(roomCode)
+	if room == nil {
+		return
+	}
+
+	type VoteProgressPayload struct {
+		Approved int `json:"approved"`
+		Rejected int `json:"rejected"`
+	}
+
+	msg := types.WsMessage{
+		Type: "vote_progress",
+		Payload: VoteProgressPayload{
+			Approved: len(vote.Approves),
+			Rejected: len(vote.Rejects),
+		},
+	}
+
+	for conn := range room.Clients {
+		conn.WriteJSON(msg)
+	}
+}
+
+func (h *Handler) broadcastVoteResult(roomCode string, vote *game.VoteSession, success bool) {
+	room := h.hub.GetRoom(roomCode)
+	if room == nil {
+		return
+	}
+
+	message := "Ganti main card DITOLAK"
+	if success {
+		message = "Ganti main card DISETUJUI"
+	}
+
+	msg := types.WsMessage{
+		Type: "vote_result",
+		Payload: types.VoteResultPayload{
+			Approved: len(vote.Approves),
+			Rejected: len(vote.Rejects),
+			MainCard: vote.NewMainCard,
+			Success:  success,
+			Message:  message,
+		},
+	}
+
+	for conn := range room.Clients {
+		conn.WriteJSON(msg)
+	}
 }
 
 func (h *Handler) sendError(conn *websocket.Conn, message string) {

@@ -18,7 +18,7 @@ type Validator struct {
 func NewValidator(filename string) (*Validator, error) {
 	v := &Validator{
 		dictionary:     make(map[string]bool),
-		dictionaryPath: "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/kata.txt",
+		dictionaryPath: "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/wordlist.txt",
 	}
 	return v, nil
 }
@@ -34,9 +34,16 @@ func (v *Validator) loadDictionary() error {
 	v.dictionary = make(map[string]bool)
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		word := strings.TrimSpace(scanner.Text())
-		if word != "" && len(word) == 4 {
-			v.dictionary[strings.ToUpper(word)] = true
+		line := strings.TrimSpace(scanner.Text())
+		if line == "" {
+			continue
+		}
+		words := strings.Split(line, ",")
+		for _, word := range words {
+			word = strings.TrimSpace(word)
+			if word != "" {
+				v.dictionary[strings.ToUpper(word)] = true
+			}
 		}
 	}
 	v.mu.Unlock()
@@ -60,7 +67,7 @@ func (v *Validator) IsValid(word string) bool {
 	v.ReloadIfChanged()
 
 	word = strings.ToUpper(strings.TrimSpace(word))
-	if len(word) != 4 {
+	if word == "" {
 		return false
 	}
 
@@ -77,7 +84,7 @@ func (v *Validator) Contains(word, sub string) bool {
 
 func (v *Validator) AddWord(word string) {
 	word = strings.ToUpper(word)
-	if len(word) == 4 {
+	if word != "" {
 		v.mu.Lock()
 		defer v.mu.Unlock()
 		v.dictionary[word] = true

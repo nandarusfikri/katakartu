@@ -10,12 +10,10 @@
     <div class="container">
         <header>
             <h1>Kartu Kata</h1>
-            <p class="tagline">Bermain kata Bahasa Indonesia</p>
-            <button class="btn btn-small" onclick="showWords()">Lihat Kata Baku</button>
+            <p class="tagline">Gabungkan suku kata menjadi kata valid</p>
         </header>
 
         <main id="app">
-            <!-- Screen: Landing -->
             <section id="screen-landing" class="screen active">
                 <div class="card landing-card">
                     <button class="btn btn-primary" onclick="showScreen('create')">
@@ -27,7 +25,6 @@
                 </div>
             </section>
 
-            <!-- Screen: Create Room -->
             <section id="screen-create" class="screen">
                 <div class="card">
                     <h2>Buat Room Baru</h2>
@@ -44,7 +41,6 @@
                 </div>
             </section>
 
-            <!-- Screen: Join Room -->
             <section id="screen-join" class="screen">
                 <div class="card">
                     <h2>Join Room</h2>
@@ -65,7 +61,6 @@
                 </div>
             </section>
 
-            <!-- Screen: Lobby -->
             <section id="screen-lobby" class="screen">
                 <div class="card">
                     <div class="room-info">
@@ -85,35 +80,57 @@
                 </div>
             </section>
 
-            <!-- Screen: Game -->
             <section id="screen-game" class="screen">
                 <div class="game-area">
-                    <div class="play-area">
-                        <div class="drop-zone prefix" id="prefix-zone" 
-                             ondragover="allowDrop(event)" 
-                             ondragleave="dragLeave(event)"
-                             ondrop="dropPrefix(event)">
+                    <div class="leaderboard-compact">
+                        <span class="trophy-icon">🏆</span>
+                        <div id="leaderboard-list" class="leaderboard-list-compact"></div>
+                    </div>
+
+                    <div id="vote-popup" class="vote-popup hidden">
+                        <div class="vote-header">
+                            <span class="vote-title">Voting Ganti Main Card</span>
+                            <span class="vote-timer" id="vote-timer">5</span>
+                        </div>
+                        <div class="vote-info">
+                            <span id="vote-initiator"></span> ingin ganti main card
+                        </div>
+                        <div class="vote-progress">
+                            <span class="vote-approve" id="vote-approve">✓ 0</span>
+                            <span class="vote-reject" id="vote-reject">✗ 0</span>
+                        </div>
+                        <div class="vote-buttons">
+                            <button class="btn btn-approve" onclick="submitVote(true)">Approve</button>
+                            <button class="btn btn-reject" onclick="submitVote(false)">Reject</button>
+                        </div>
+                    </div>
+
+                    <div class="word-preview">
+                        <span class="preview-prefix" id="preview-prefix"></span>
+                        <span class="preview-main" id="main-card">--</span>
+                        <span class="preview-suffix" id="preview-suffix"></span>
+                        <div class="word-result" id="word-preview">---</div>
+                    </div>
+
+                    <div class="drop-zones">
+                        <div class="drop-zone prefix-zone" id="prefix-zone" data-zone="prefix">
                             <span class="drop-label">DEPAN</span>
                         </div>
-                        
+
                         <div class="main-card-display">
                             <span class="label">Main Card</span>
-                            <div id="main-card" class="card-large">--</div>
+                            <div id="main-card-display" class="card-large">--</div>
                             <div id="play-message" class="play-message hidden"></div>
                         </div>
-                        
-                        <div class="drop-zone suffix" id="suffix-zone" 
-                             ondragover="allowDrop(event)" 
-                             ondragleave="dragLeave(event)"
-                             ondrop="dropSuffix(event)">
+
+                        <div class="drop-zone suffix-zone" id="suffix-zone" data-zone="suffix">
                             <span class="drop-label">BELAKANG</span>
                         </div>
                     </div>
 
                     <div class="hand-area">
-                        <span class="label">Kartu Kamu</span>
-                        <div id="player-hand" class="hand-cards">
-                        </div>
+                        <span class="label">Seret kartu ke DEPAN atau BELAKANG main card</span>
+                        <div id="player-hand" class="hand-cards" data-zone="hand"></div>
                     </div>
 
                     <div class="actions">
@@ -121,12 +138,12 @@
                             Ambil Kartu
                         </button>
                         <button class="btn btn-primary" id="btn-submit" onclick="submitPlay()" disabled>
-                            Mainkan
+                            Submit
                         </button>
                         <button class="btn btn-secondary" onclick="clearSelection()">
                             Reset
                         </button>
-                        <button class="btn btn-warning" onclick="changeMainCard()">
+                        <button class="btn btn-warning" onclick="requestChangeMain()">
                             Ganti Main
                         </button>
                     </div>
@@ -135,7 +152,7 @@
         </main>
 
         <div id="toast" class="toast hidden"></div>
-        
+
         <div id="words-modal" class="modal hidden">
             <div class="modal-content">
                 <span class="close" onclick="closeWords()">&times;</span>
