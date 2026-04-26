@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Kartu Kata - Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Kartu Kata</h1>
+            <p class="tagline">Bermain kata Bahasa Indonesia</p>
+            <button class="btn btn-small" onclick="showWords()">Lihat Kata Baku</button>
+        </header>
+
+        <main id="app">
+            <!-- Screen: Landing -->
+            <section id="screen-landing" class="screen active">
+                <div class="card landing-card">
+                    <button class="btn btn-primary" onclick="showScreen('create')">
+                        Buat Room
+                    </button>
+                    <button class="btn btn-secondary" onclick="showScreen('join')">
+                        Join Room
+                    </button>
+                </div>
+            </section>
+
+            <!-- Screen: Create Room -->
+            <section id="screen-create" class="screen">
+                <div class="card">
+                    <h2>Buat Room Baru</h2>
+                    <div class="form-group">
+                        <label for="create-username">Nama kamu</label>
+                        <input type="text" id="create-username" placeholder="Masukkan nama" maxlength="20">
+                    </div>
+                    <button class="btn btn-primary" onclick="createRoom()">
+                        Buat Room
+                    </button>
+                    <button class="btn btn-text" onclick="showScreen('landing')">
+                        Kembali
+                    </button>
+                </div>
+            </section>
+
+            <!-- Screen: Join Room -->
+            <section id="screen-join" class="screen">
+                <div class="card">
+                    <h2>Join Room</h2>
+                    <div class="form-group">
+                        <label for="join-username">Nama kamu</label>
+                        <input type="text" id="join-username" placeholder="Masukkan nama" maxlength="20">
+                    </div>
+                    <div class="form-group">
+                        <label for="join-code">Kode Room</label>
+                        <input type="text" id="join-code" placeholder="ABCD" maxlength="4" style="text-transform: uppercase;">
+                    </div>
+                    <button class="btn btn-primary" onclick="joinRoom()">
+                        Join
+                    </button>
+                    <button class="btn btn-text" onclick="showScreen('landing')">
+                        Kembali
+                    </button>
+                </div>
+            </section>
+
+            <!-- Screen: Lobby -->
+            <section id="screen-lobby" class="screen">
+                <div class="card">
+                    <div class="room-info">
+                        <span class="label">Kode Room</span>
+                        <span id="lobby-room-code" class="room-code">----</span>
+                    </div>
+                    <div class="players-list">
+                        <h3>Pemain (<span id="player-count">0</span>/6)</h3>
+                        <ul id="players-list"></ul>
+                    </div>
+                    <button id="btn-start" class="btn btn-primary" onclick="startGame()" disabled>
+                        Mulai Game
+                    </button>
+                    <button class="btn btn-text" onclick="disconnect()">
+                        Keluar
+                    </button>
+                </div>
+            </section>
+
+            <!-- Screen: Game -->
+            <section id="screen-game" class="screen">
+                <div class="game-area">
+                    <div class="play-area">
+                        <div class="drop-zone prefix" id="prefix-zone" 
+                             ondragover="allowDrop(event)" 
+                             ondragleave="dragLeave(event)"
+                             ondrop="dropPrefix(event)">
+                            <span class="drop-label">DEPAN</span>
+                        </div>
+                        
+                        <div class="main-card-display">
+                            <span class="label">Main Card</span>
+                            <div id="main-card" class="card-large">--</div>
+                            <div id="play-message" class="play-message hidden"></div>
+                        </div>
+                        
+                        <div class="drop-zone suffix" id="suffix-zone" 
+                             ondragover="allowDrop(event)" 
+                             ondragleave="dragLeave(event)"
+                             ondrop="dropSuffix(event)">
+                            <span class="drop-label">BELAKANG</span>
+                        </div>
+                    </div>
+
+                    <div class="hand-area">
+                        <span class="label">Kartu Kamu</span>
+                        <div id="player-hand" class="hand-cards">
+                        </div>
+                    </div>
+
+                    <div class="actions">
+                        <button class="btn btn-secondary" onclick="drawCard()">
+                            Ambil Kartu
+                        </button>
+                        <button class="btn btn-primary" id="btn-submit" onclick="submitPlay()" disabled>
+                            Mainkan
+                        </button>
+                        <button class="btn btn-secondary" onclick="clearSelection()">
+                            Reset
+                        </button>
+                        <button class="btn btn-warning" onclick="changeMainCard()">
+                            Ganti Main
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div id="toast" class="toast hidden"></div>
+        
+        <div id="words-modal" class="modal hidden">
+            <div class="modal-content">
+                <span class="close" onclick="closeWords()">&times;</span>
+                <h2>Daftar Kata Baku</h2>
+                <div id="words-list" class="words-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

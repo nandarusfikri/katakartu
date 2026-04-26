@@ -1,0 +1,621 @@
+
+# 🎮 1. Konsep Game (Ringkas & Jelas)
+
+**Nama sementara:** *Kartu Kata*
+
+Game multiplayer berbasis web (mobile-friendly), di mana pemain menyusun kata baku Bahasa Indonesia dari kartu huruf.
+
+---
+
+# 🧩 2. Aturan Permainan
+
+### Setup Awal
+
+* 1 pemain sebagai **Master (Host)**
+
+* Master membuat **room**
+
+* Maksimal pemain (misalnya): 2–6 orang
+
+* Setiap pemain mendapat:
+
+  * **10 kartu**
+  * Setiap kartu berisi **2 huruf** (contoh: "KA", "MA", "SI")
+
+* Tersedia:
+
+  * **50 kartu pool (deck)**
+  * **1 kartu utama (main card)** di tengah dan akan selalu terupdate dari kartu pemain yang benar
+
+---
+
+### Cara Bermain
+
+1. Game berjalan siapa cepat dan benar
+2. Di setiap pemain mengeluarkan kartu:
+
+   * Pemain mencoba mencocokkan kartu dari tangan dengan **main card**
+   * Tujuannya: membentuk **kata baku Bahasa Indonesia**
+
+👉 Contoh:
+
+* Main card: "MA"
+* Pemain punya: "KAN"
+* Hasil: "MAKAN" ✅ (valid)
+
+
+3. pemain juga bisa menggunakan kata tambahan yang tersedia (kata bantuan ada 3 kartu) nama blum tau
+---
+
+### Aksi Pemain
+
+Dalam 1 giliran, pemain bisa:
+
+* ✅ Mengeluarkan kombinasi kartu → membentuk kata
+* ❌ Skip (tidak melakukan apa-apa)
+* ➕ Ambil 1 kartu dari pool jika pemain salah
+
+---
+
+### Validasi Kata
+
+* Kata harus:
+
+  * Ada di kamus Bahasa Indonesia
+  * Tidak boleh kata slang
+
+👉 Bisa pakai referensi:
+
+* KBBI API / dataset offline
+
+---
+
+### Kondisi Menang
+
+* Pemain pertama yang:
+
+  * Menghabiskan semua kartu di tangan → **MENANG**
+* Atau:
+
+  * Game selesai saat pool habis → pemenang = kartu paling sedikit
+
+---
+
+# 🧱 3. Fitur Utama (Functional Requirements)
+
+## 👤 User & Room
+
+* Create Room (Master)
+* Join Room (pakai kode)
+* Lobby (lihat pemain lain)
+* Start Game (oleh Master)
+
+---
+
+## 🃏 Game Logic
+
+* Shuffle deck
+* Distribusi kartu (10 kartu/player)
+* Ambil 1 kartu main
+* Giliran pemain
+* Ambil kartu dari pool
+* Validasi kata
+
+---
+
+## 🔄 Multiplayer
+
+* Real-time update:
+
+  * Giliran
+  * Kartu pemain
+  * Main card
+* Sinkronisasi state game
+
+---
+
+## 📱 UI Mobile Friendly
+
+* Tampilan kartu
+* Drag & drop (opsional)
+* Button aksi:
+
+  * Mainkan kartu
+  * Ambil kartu
+  * Skip
+
+---
+
+## 📊 Game State
+
+* Status game:
+
+  * Waiting
+  * Playing
+  * Finished
+* Data:
+
+  * Player list
+  * Kartu tiap pemain
+  * Deck
+  * Turn aktif
+
+---
+
+# 🧰 4. Non-Functional Requirements
+
+* Responsive (mobile first)
+* Latency rendah (real-time)
+* Skalabilitas (room banyak)
+* Simple UI (tidak berat)
+
+---
+
+# ⚙️ 5. Tech Stack (Rekomendasi)
+
+### Frontend
+
+* HTML / CSS / JS
+* atau:
+
+  * React / Next.js
+
+### Backend
+
+* Node.js + Express
+* WebSocket:
+
+  * Socket.IO 🔥 (recommended)
+
+### Database (opsional)
+
+* Redis (state cepat)
+* atau:
+
+  * Firebase Realtime DB
+
+### Validasi Kata
+
+* Dataset KBBI JSON
+* atau API
+
+---
+
+
+
+# 🔁 7. Flow Game
+
+1. User buka web
+2. Create / Join room
+3. Lobby
+4. Host start game
+5. Kartu dibagikan
+6. Game loop:
+
+   * Player turn
+   * Main / draw / skip
+7. Cek menang
+8. End game
+
+---
+
+
+Oke, ini aku rapikan dan pertegas aturan mainnya supaya:
+
+* **tidak ambigu**
+* **mudah di-implement oleh developer**
+* **jelas untuk pemain**
+
+Sekarang aturanmu masih agak campur antara *turn-based* dan *real-time*. Kita harus pilih satu.
+Dari kalimat *“siapa cepat dan benar”*, berarti ini lebih cocok **real-time (tanpa giliran)**.
+
+---
+
+# 🎮 ATURAN GAME (VERSI FINAL – JELAS & SIAP IMPLEMENTASI)
+
+## 1. 🎯 Tujuan Game
+
+Pemain harus **menghabiskan semua kartu di tangan** dengan cara menyusun **kata baku Bahasa Indonesia** dari kombinasi kartu + **main card**.
+
+---
+
+## 2. 🧩 Setup Awal
+
+* 1 pemain sebagai **Host**
+* Pemain lain join room
+* Jumlah pemain: **2–6 orang**
+
+### Saat game dimulai:
+
+* Setiap pemain mendapat:
+
+  * **10 kartu**
+  * Tiap kartu berisi **2 huruf** (contoh: "MA", "KA", "SI")
+
+* Sistem menyiapkan:
+
+  * **Deck (pool): 50 kartu**
+  * **1 Main Card awal** (misalnya: "MA")
+  * **3 Kartu Bantuan (shared/global)** → bisa dipakai semua pemain
+
+---
+
+## 3. ⚡ Mekanisme Game (REAL-TIME)
+
+* Game berjalan **tanpa giliran (real-time)**
+* Semua pemain bisa bermain **secara bersamaan**
+* Siapa cepat dia dapat
+
+---
+
+## 4. 🧠 Cara Membentuk Kata
+
+Pemain harus:
+
+* Menggabungkan:
+
+  * **Main Card**
+  * * 1 atau lebih kartu dari tangan
+  * (opsional) + kartu bantuan
+
+👉 Harus membentuk:
+
+* **kata baku Bahasa Indonesia**
+* minimal 3 huruf
+
+---
+
+### ✅ Contoh Valid
+
+* Main Card: `"MA"`
+* Kartu pemain: `"KAN"`
+* Hasil: `"MAKAN"` ✅
+
+---
+
+### ❌ Contoh Tidak Valid
+
+* Kata tidak ada di KBBI
+* Kata slang / tidak baku
+* Tidak menggunakan Main Card
+
+---
+
+## 5. 🔄 Update Main Card
+
+INI BAGIAN PENTING (biar game hidup):
+
+* Jika pemain berhasil membuat kata:
+
+  * Kata dianggap valid
+  * **Main Card akan berubah**
+
+👉 Cara update:
+
+* Ambil **2 huruf terakhir dari kata**
+
+Contoh:
+
+* "MAKAN" → Main Card jadi: `"AN"`
+* "SANTAI" → Main Card jadi: `"AI"`
+
+---
+
+## 6. 🎮 Aksi Pemain
+
+Pemain bisa melakukan:
+
+### 1. ✅ Mainkan Kartu
+
+* Pilih kartu dari tangan
+* Sistem cek validasi
+* Jika valid:
+
+  * kartu terpakai (hilang dari tangan)
+  * main card update
+* Jika salah:
+
+  * dianggap gagal
+
+---
+
+### 2. ❌ Salah (Penalty)
+
+Jika kata tidak valid:
+
+* pemain **harus ambil 1 kartu dari deck**
+
+---
+
+### 3. ➕ Ambil Kartu
+
+* Bisa ambil 1 kartu dari pool kapan saja (opsional atau hanya saat gagal → tentukan di rule)
+* Maks limit tangan (opsional): 15 kartu
+
+---
+
+### 4. 🧩 Gunakan Kartu Bantuan (3 kartu global)
+
+Kartu ini bisa dipakai semua pemain:
+
+Contoh ide:
+
+* **Wildcard** → bisa jadi huruf apa saja
+* **Tambah huruf vokal**
+* **Reverse card (opsional, advanced)**
+
+👉 Aturan:
+
+* Sekali pakai → hilang
+* Bisa dipakai siapa saja (race)
+
+---
+
+## 7. ⛔ Conflict Handling (WAJIB UNTUK REAL-TIME)
+
+Karena real-time, bisa terjadi:
+👉 2 pemain submit kata bersamaan
+
+Solusi:
+
+* Server pakai **timestamp**
+* Yang pertama masuk → diterima
+* Yang lain:
+
+  * dianggap gagal
+  * tetap kena penalty (opsional, atau tidak dihukum)
+
+---
+
+## 8. 🏆 Kondisi Menang
+
+### Menang utama:
+
+* Pemain pertama yang **kartu di tangan = 0**
+
+---
+
+### Alternatif (jika game stagnan):
+
+* Deck habis → game selesai
+* Pemenang:
+
+  * kartu paling sedikit
+
+---
+
+## 9. ⚠️ Edge Rules (Penting untuk Developer)
+
+* Kata harus selalu:
+
+  * mengandung **main card**
+* Tidak boleh:
+
+  * pakai kartu yang tidak dimiliki
+* Validasi dilakukan di:
+
+  * **SERVER (WAJIB, anti-cheat)**
+
+---
+
+## 10. 💡 Catatan Penting (Design Decision)
+
+### 🔥 Yang sudah diperjelas:
+
+* ✅ Bukan turn-based → REAL-TIME
+* ✅ Main card selalu berubah
+* ✅ Ada sistem penalty
+* ✅ Ada shared resource (kartu bantuan)
+* ✅ Ada conflict resolution
+
+---
+
+# 🚀 Versi Singkat (Untuk Developer)
+
+**Core Loop:**
+
+1. Player submit word
+2. Server validate:
+
+   * pakai main card?
+   * valid di KBBI?
+3. Jika valid:
+
+   * remove cards dari player
+   * update main card
+4. Jika tidak:
+
+   * tambah 1 kartu ke player
+
+---
+
+Nah ini penting banget—kalau gak didefinisikan dengan jelas, nanti developer bingung implementasi logic-nya.
+
+Aku rapikan jadi **aturan update Main Card + cara pencocokan (depan/belakang)** yang clean dan konsisten 👇
+
+---
+
+# 🔄 ATURAN UPDATE MAIN CARD (FINAL)
+
+## 1. 🎯 Konsep Inti
+
+* **Main Card = 2 huruf aktif di tengah**
+* Pemain harus:
+
+  * **menggunakan Main Card**
+  * lalu **menambahkan kartu dari tangan**
+* Kata bisa dibentuk:
+
+  * dari **depan (prefix)**
+  * atau **belakang (suffix)**
+
+---
+
+## 2. 🧠 Cara Pencocokan
+
+### ✅ A. Tambah di BELAKANG (Suffix)
+
+Format:
+
+```
+Main Card + kartu pemain → kata
+```
+
+Contoh:
+
+* Main Card: `"MA"`
+* Kartu: `"KAN"`
+* Hasil: `"MAKAN"` ✅
+
+---
+
+### ✅ B. Tambah di DEPAN (Prefix)
+
+Format:
+
+```
+kartu pemain + Main Card → kata
+```
+
+Contoh:
+
+* Main Card: `"MA"`
+* Kartu: `"LA"`
+* Hasil: `"LAMA"` ✅
+
+---
+
+## 3. ⚠️ Rule Validasi (WAJIB)
+
+Sebuah kata dianggap valid jika:
+
+* Mengandung **Main Card utuh (tidak boleh dipecah)**
+* Urutan harus benar:
+
+  * depan ATAU belakang (tidak boleh disisipkan di tengah)
+* Kata ada di KBBI
+
+---
+
+## 4. 🔄 Cara Update Main Card (DARI KARTU PEMAIN)
+
+Ini bagian yang kamu minta: **diambil dari kartu pemain, bukan dari kata penuh**
+
+---
+
+## 🧩 RULE UTAMA:
+
+👉 **Main Card baru = kartu TERAKHIR yang dimainkan oleh pemain**
+
+---
+
+### Contoh 1 (Suffix)
+
+* Main Card: `"MA"`
+* Pemain pakai: `"KAN"`
+* Kata: `"MAKAN"`
+
+👉 Main Card baru:
+
+```
+"KAN"
+```
+
+---
+
+### Contoh 2 (Prefix)
+
+* Main Card: `"MA"`
+* Pemain pakai: `"LA"`
+* Kata: `"LAMA"`
+
+👉 Main Card baru:
+
+```
+"LA"
+```
+
+---
+
+## 5. 🧠 Jika Pakai Lebih dari 1 Kartu
+
+Kalau pemain pakai banyak kartu:
+
+### Contoh:
+
+* Main Card: `"MA"`
+* Kartu: `"KA"` + `"N"`
+* Kata: `"MAKAN"`
+
+👉 Urutan main:
+
+* "KA" → "N"
+
+👉 Main Card baru:
+
+```
+"N" (kartu terakhir yang dipasang)
+```
+
+---
+
+## 6. 🔥 Alternatif Rule (Opsional, lebih stabil)
+
+Kalau mau gameplay lebih konsisten (rekomendasi):
+
+👉 **Main Card baru = 2 huruf TERAKHIR dari kata**
+
+Contoh:
+
+* "MAKAN" → `"AN"`
+* "LAMA" → `"MA"`
+
+---
+
+## ⚖️ Perbandingan 2 Sistem
+
+### A. Ambil dari kartu pemain (punya kamu)
+
+✅ Lebih strategis
+❌ Bisa jadi chaos (kata aneh)
+
+---
+
+### B. Ambil dari kata (rekomendasi)
+
+✅ Lebih natural (kayak word chain)
+✅ Lebih mudah dipahami pemain
+✅ Lebih stabil untuk gameplay
+
+---
+
+
+
+---
+
+# 💡 Saran Jujur
+
+Kalau tujuanmu:
+
+* game cepat
+* fun
+* gampang dipahami
+
+👉 pakai:
+**Main Card = 2 huruf terakhir dari kata**
+
+Kalau tujuanmu:
+
+* lebih strategis
+* ada skill depth
+
+👉 pakai:
+**Main Card = kartu terakhir pemain**
+
+---
+
+Kalau kamu mau, next aku bisa bantu:
+
+* bikin **simulasi gameplay 3–4 player (biar kelihatan serunya)**
+* atau **desain UX flow (drag kartu, klik cepat, dll)** 🔥
+

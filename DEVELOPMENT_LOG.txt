@@ -1,0 +1,201 @@
+# Game KataBaku - Development Log
+
+## 📅 Tanggal: 25 April 2026
+## 👨‍💻 Developer: AI Assistant
+## 🎮 Game: Kartu Kata - Word Game Bahasa Indonesia
+
+---
+
+# ✅ Phase Development Status
+
+## Phase 1: Backend Core & Basic Frontend - ✅ COMPLETE
+**Tanggal:** 25 April 2026
+**Status:** Fully Implemented & Working
+
+### Files Created:
+```
+cmd/server/main.go           - Entry point, HTTP + WebSocket server
+internal/hub/hub.go        - Room/connection management
+internal/types/types.go    - Type definitions
+internal/handler/handler.go - Message handlers
+web/index.html             - UI
+web/style.css              - Mobile-first CSS
+web/app.js                 - Frontend logic
+```
+
+### Features:
+- [x] HTTP server running on :8080
+- [x] WebSocket /ws endpoint
+- [x] Room creation (host)
+- [x] Room join via code
+- [x] Player listing in lobby
+- [x] Start game (host only, min 1 player)
+- [x] Static file serving
+
+---
+
+## Phase 2: Game Logic - ✅ COMPLETE
+**Tanggal:** 25 April 2026
+**Status:** Fully Implemented
+
+### Files Created:
+```
+internal/game/card.go      - Card deck generator
+internal/game/validator.go - KBBI dictionary validator
+internal/game/game.go     - Core game logic
+```
+
+### Features:
+- [x] Card deck generation (50+ cards, 2 huruf)
+- [x] KBBI dictionary (5000+ kata Indonesia)
+- [x] Main card generation
+- [x] Card play validation
+- [x] Prefix/Suffix support
+- [x] Word validation (min 3 huruf, ada di KBBI)
+- [x] Winner detection
+- [x] Draw card mechanic
+
+### Bugs Fixed:
+- [x] Client ID uniqueness (randomString bug)
+- [x] Host can play (min 1 player)
+- [x] game_state message handling
+
+---
+
+## Phase 3: Frontend Integration - ✅ COMPLETE
+**Tanggal:** 25 April 2026
+**Status:** Fully Implemented
+
+### Files Updated:
+```
+web/app.js               - Added game_state handler
+```
+
+### Features:
+- [x] game_state message handling
+- [x] Screen transition to game
+- [x] Main card display
+- [x] Hand card rendering
+- [x] Card selection
+- [x] Position selection (prefix/suffix)
+- [x] Submit play
+- [x] Draw card
+
+---
+
+## 🚧 Current State: Phase 3 - IN PROGRESS
+
+### Working Features:
+- [x] Room creation & join
+- [x] Game start
+- [x] Main card display
+- [x] Hand card rendering
+
+### TODO / Not Yet Implemented:
+- [ ] Card selection UI feedback
+- [ ] Play result feedback (valid/invalid)
+- [ ] Main card update after play
+- [ ] Opponent card updates (real-time)
+- [ ] Helper cards UI
+- [ ] Game over screen
+- [ ] Win condition UI
+- [ ] Disconnect handling
+- [ ] Host migration
+
+---
+
+## 📁 Project Structure
+
+```
+Game_KataBaku/
+├── cmd/
+│   └── server/
+│       └── main.go
+├── internal/
+│   ├── game/
+│   │   ├── card.go
+│   │   ├── game.go
+│   │   └── validator.go
+│   ├── hub/
+│   │   └── hub.go
+│   ├── types/
+│   │   └── types.go
+│   └── handler/
+│       └── handler.go
+├── web/
+│   ├── index.html
+│   ├── style.css
+│   └── app.js
+├── data/
+├── go.mod
+└── server.log
+```
+
+---
+
+## 🧪 How to Test
+
+1. Run server:
+   ```bash
+   cd Game_KataBaku
+   go run cmd/server/main.go
+   ```
+
+2. Open browser: http://localhost:8080
+
+3. Create room (Player 1):
+   - Click "Buat Room"
+   - Enter username
+   - Click "Buat Room"
+
+4. Join room (Player 2):
+   - Open new tab
+   - Click "Join Room"
+   - Enter same room code
+   - Click "Join"
+
+5. Start game (Host):
+   - Click "Mulai Game"
+
+6. Play:
+   - Main Card + kartu dari tangan → Bentuk kata
+
+---
+
+## 📝 Notes
+
+- Server runs on port 8080
+- WebSocket at ws://localhost:8080/ws
+- Mobile-first responsive design
+- Real-time multiplayer using Gorilla WebSocket
+- Backend: Go (Golang)
+- Frontend: Plain HTML/CSS/JS (no framework)
+
+---
+
+## 🔜 Next Steps (Recommended)
+
+1. Fix remaining Phase 3 items:
+   - Card selection visual feedback
+   - Play result toast
+   - Real-time card updates
+
+2. Add helper cards UI:
+   - Wildcard
+   - Vokal tambahan
+
+3. Polish:
+   - Game over screen
+   - Win celebration
+   - Disconnect handling
+   - Rate limiting
+
+4. Production ready:
+   - Remove debug logs
+   - Add proper error handling
+   - Add dictionary file loading
+   - Deploy guide
+
+---
+
+*Generated: 25 April 2026*

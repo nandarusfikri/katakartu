@@ -1,0 +1,379 @@
+Oke, ini aku rapikan jadi **requirement final yang clean, konsisten, dan siap langsung dipakai developer / AI agent**. Aku juga sudah menghilangkan konflik (turn vs real-time, dll) dan menegaskan semua rule penting.
+
+---
+
+# 📄 GAME REQUIREMENT DOCUMENT
+
+## 🎮 Nama Game: *Kartu Kata*
+
+---
+
+# 1. 🎯 Tujuan Game
+
+Pemain harus **menghabiskan semua kartu di tangan** dengan cara menyusun **kata baku Bahasa Indonesia** menggunakan:
+
+* **Main Card (kartu tengah)**
+* * kartu dari tangan
+
+---
+
+# 2. 🧩 Game Mode
+
+* Mode: **Multiplayer Real-time**
+* Platform: **Web Mobile (responsive)**
+* Jumlah pemain: **2–6 orang**
+* Tidak ada giliran → semua pemain bermain **secara bersamaan**
+
+---
+
+# 3. 🧱 Setup Game
+
+## 3.1 Room
+
+* 1 pemain sebagai **Host**
+* Host membuat room (kode unik)
+* Player lain join via kode
+* Host menekan tombol **Start Game**
+
+---
+
+## 3.2 Distribusi Awal
+
+Saat game dimulai:
+
+* Setiap pemain mendapat:
+
+  * **10 kartu**
+  * Tiap kartu berisi **2 huruf** (contoh: "MA", "KA", "SI")
+
+* Sistem menyiapkan:
+
+  * **Deck / Pool: 50 kartu**
+  * **1 Main Card awal (2 huruf)**
+  * **3 Kartu Bantuan (shared/global)**
+
+---
+
+# 4. 🧠 Core Gameplay
+
+## 4.1 Prinsip Utama
+
+Pemain harus:
+
+* Menggunakan **Main Card**
+* Menambahkan 1 atau lebih kartu dari tangan
+* Membentuk **kata baku Bahasa Indonesia**
+
+---
+
+## 4.2 Cara Membentuk Kata
+
+### ✅ A. Suffix (belakang)
+
+```
+Main Card + kartu pemain
+```
+
+Contoh:
+
+* "MA" + "KAN" → "MAKAN"
+
+---
+
+### ✅ B. Prefix (depan)
+
+```
+kartu pemain + Main Card
+```
+
+Contoh:
+
+* "LA" + "MA" → "LAMA"
+
+---
+
+## 4.3 Aturan Validasi Kata
+
+Kata dianggap valid jika:
+
+* Mengandung **Main Card utuh**
+* Hanya boleh:
+
+  * di depan ATAU di belakang (tidak boleh disisipkan)
+* Minimal **3 huruf**
+* Ada di **KBBI**
+* Bukan slang / kata tidak baku
+
+---
+
+# 5. 🔄 Update Main Card (FINAL RULE)
+
+## RULE UTAMA:
+
+👉 **Main Card baru = kartu TERAKHIR yang dimainkan pemain**
+
+---
+
+### Contoh 1 (Suffix)
+
+* Main Card: "MA"
+* Kartu: ["KAN"]
+* Kata: "MAKAN"
+
+👉 Main Card baru:
+
+```
+"KAN"
+```
+
+---
+
+### Contoh 2 (Prefix)
+
+* Main Card: "MA"
+* Kartu: ["LA"]
+* Kata: "LAMA"
+
+👉 Main Card baru:
+
+```
+"LA"
+```
+
+---
+
+### Contoh Multi-Kartu
+
+* Main Card: "MA"
+* Kartu: ["KA", "N"]
+* Kata: "MAKAN"
+
+👉 Main Card baru:
+
+```
+"N"
+```
+
+---
+
+# 6. ⚡ Mekanisme Real-time
+
+* Semua pemain bisa submit kata kapan saja
+* Tidak ada giliran
+* Server menentukan validitas
+
+---
+
+## 6.1 Conflict Handling
+
+Jika 2 pemain submit bersamaan:
+
+* Server menggunakan **timestamp**
+* Yang pertama diterima:
+
+  * berhasil
+* Yang lain:
+
+  * dianggap gagal
+  * **tidak mengubah main card**
+
+---
+
+# 7. 🎮 Aksi Pemain
+
+## 7.1 Mainkan Kartu
+
+* Player memilih kartu
+* Menentukan posisi (prefix / suffix)
+* Submit ke server
+
+---
+
+## 7.2 Hasil Aksi
+
+### ✅ Jika valid:
+
+* Kartu dihapus dari tangan
+* Main Card diperbarui
+* State game di-broadcast
+
+---
+
+### ❌ Jika tidak valid:
+
+* Player kena penalty:
+
+  * **ambil 1 kartu dari deck**
+
+---
+
+## 7.3 Ambil Kartu
+
+* Player bisa:
+
+  * ambil kartu saat gagal
+  * atau (opsional) kapan saja
+
+---
+
+# 8. 🧩 Kartu Bantuan (Shared Resource)
+
+* Total: **3 kartu**
+* Bisa digunakan semua pemain (rebutan)
+
+---
+
+## Contoh Jenis:
+
+* **Wildcard** → bisa jadi huruf apa saja
+* **Vokal tambahan**
+* **Skip penalty (opsional)**
+
+---
+
+## Aturan:
+
+* Sekali pakai → hilang
+* Tidak kembali ke game
+
+---
+
+# 9. 🏆 Kondisi Menang
+
+## 9.1 Menang Utama
+
+* Pemain pertama yang:
+
+  * kartu di tangan = 0
+
+---
+
+## 9.2 Kondisi Alternatif
+
+Jika:
+
+* Deck habis
+* Tidak ada aksi valid dalam X detik
+
+👉 Pemenang:
+
+* kartu paling sedikit
+
+---
+
+# 10. 📊 Game State (Server Side)
+
+```json
+{
+  "roomId": "ABC123",
+  "status": "playing",
+  "players": [
+    {
+      "id": "p1",
+      "cards": ["MA", "KA"]
+    }
+  ],
+  "mainCard": "MA",
+  "deck": [],
+  "helperCards": [],
+  "lastUpdate": 123456789
+}
+```
+
+---
+
+# 11. 🔐 Validasi & Security
+
+WAJIB:
+
+* Semua validasi di **server**
+* Client hanya kirim:
+
+  * kartu yang dipakai
+  * posisi (prefix/suffix)
+
+Server cek:
+
+* kartu benar milik player
+* kata valid
+* rule sesuai
+
+---
+
+# 12. 📱 UI Requirements
+
+* Mobile-first
+* Komponen:
+
+  * Hand (kartu pemain)
+  * Main Card (center)
+  * Button:
+
+    * Submit
+    * Draw
+* Feedback:
+
+  * Valid / Invalid
+  * Update real-time
+
+---
+
+# 13. 🔁 Core Loop (Developer Friendly)
+
+```js
+onSubmit(player, cards, position):
+  word = buildWord(mainCard, cards, position)
+
+  if !isValid(word):
+    givePenalty(player)
+    return
+
+  removeCards(player, cards)
+
+  mainCard = last(cards)
+
+  broadcastState()
+```
+
+---
+
+# 14. ⚠️ Edge Cases (WAJIB DIHANDLE)
+
+* Player disconnect
+* Host keluar → assign host baru
+* Deck habis
+* Spam submit
+* Kata valid tapi race kalah
+* Player kirim kartu palsu
+
+---
+
+# 15. 🚀 MVP Scope (Versi Cepat Jadi)
+
+Untuk versi awal:
+
+* Tanpa login
+* Tanpa animasi
+* Tanpa kartu bantuan (opsional skip dulu)
+* Max 2–4 player
+* Validasi pakai JSON dictionary
+
+---
+
+# 💡 Catatan Penting (Design Decision)
+
+Game ini sekarang:
+
+* ✅ Real-time (bukan turn-based)
+* ✅ Skill-based (cepat & kosakata)
+* ✅ Ada kompetisi langsung
+* ✅ Main card dinamis dari pemain
+
+---
+
+Kalau mau next step, aku bisa bantu:
+
+* bikin **arsitektur backend (Socket.IO event detail)**
+* atau langsung **generate starter code (frontend + backend siap jalan)** 🔥
+
+buatkan dengan backend golang.

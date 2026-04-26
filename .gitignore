@@ -1,0 +1,27 @@
+# Binaries
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+/server
+
+# Go workspace
+go.work
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+server.log
+
+# Environment
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
