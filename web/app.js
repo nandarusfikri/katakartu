@@ -81,9 +81,7 @@ function handleMessage(msg) {
             showToast(msg.payload.message, 'error');
             break;
 
-        case 'correct_answer':
-            showToast(`BENAR! ${msg.payload.playerName} menjawab: ${msg.payload.word}`, 'success');
-            break;
+        
     }
 }
 
@@ -306,6 +304,8 @@ function renderHand() {
     });
 }
 
+
+
 function handlePlayResult(payload) {
     canPlay = false;
     const prefixZone = document.getElementById('prefix-zone');
@@ -316,7 +316,7 @@ function handlePlayResult(payload) {
     
     if (payload.valid) {
         messageEl.classList.add('success');
-        messageEl.textContent = `BENAR! Kata: ${payload.word}`;
+        messageEl.textContent = `${payload.playerName} menjawab BENAR! Kata: ${payload.word}`;
         
         if (selectedPosition === 'prefix') {
             prefixZone.classList.add('correct');
@@ -344,7 +344,6 @@ function handlePlayResult(payload) {
         suffixZone.classList.remove('correct', 'wrong');
         messageEl.classList.add('hidden');
         
-        // Refresh game state
         renderHand();
     }, 3000);
 }

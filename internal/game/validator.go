@@ -4,23 +4,34 @@ import (
 	"bufio"
 	"os"
 	"strings"
+	"sync"
+	"time"
 )
 
 type Validator struct {
-	dictionary map[string]bool
+	dictionary     map[string]bool
+	dictionaryPath string
+	lastModified   time.Time
+	mu             sync.RWMutex
 }
 
 func NewValidator(filename string) (*Validator, error) {
 	v := &Validator{
-		dictionary: make(map[string]bool),
+		dictionary:     make(map[string]bool),
+		dictionaryPath: "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/kata.txt",
 	}
+	return v, nil
+}
 
-	file, err := os.Open("/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/kata.txt")
+func (v *Validator) loadDictionary() error {
+	file, err := os.Open(v.dictionaryPath)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	defer file.Close()
 
+	v.mu.Lock()
+	v.dictionary = make(map[string]bool)
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		word := strings.TrimSpace(scanner.Text())
@@ -28,15 +39,33 @@ func NewValidator(filename string) (*Validator, error) {
 			v.dictionary[strings.ToUpper(word)] = true
 		}
 	}
+	v.mu.Unlock()
 
-	return v, nil
+	return nil
+}
+
+func (v *Validator) ReloadIfChanged() {
+	info, err := os.Stat(v.dictionaryPath)
+	if err != nil {
+		return
+	}
+
+	if v.lastModified.IsZero() || !info.ModTime().Equal(v.lastModified) {
+		v.lastModified = info.ModTime()
+		v.loadDictionary()
+	}
 }
 
 func (v *Validator) IsValid(word string) bool {
+	v.ReloadIfChanged()
+
 	word = strings.ToUpper(strings.TrimSpace(word))
 	if len(word) != 4 {
 		return false
 	}
+
+	v.mu.RLock()
+	defer v.mu.RUnlock()
 	return v.dictionary[word]
 }
 
@@ -49,10 +78,14 @@ func (v *Validator) Contains(word, sub string) bool {
 func (v *Validator) AddWord(word string) {
 	word = strings.ToUpper(word)
 	if len(word) == 4 {
+		v.mu.Lock()
+		defer v.mu.Unlock()
 		v.dictionary[word] = true
 	}
 }
 
 func (v *Validator) Count() int {
+	v.mu.RLock()
+	defer v.mu.RUnlock()
 	return len(v.dictionary)
 }

@@ -474,6 +474,34 @@ input[type="text"]::placeholder {
     color: var(--error);
 }
 
+.answer-alert {
+    position: relative;
+    margin-top: 12px;
+    background: var(--success);
+    color: #000;
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.answer-alert.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.answer-player {
+    font-weight: 700;
+}
+
 .status-area {
     min-height: 50px;
     display: flex;
@@ -507,6 +535,7 @@ input[type="text"]::placeholder {
 
 .main-card-display {
     text-align: center;
+    position: relative;
 }
 
 .main-card-display .label {

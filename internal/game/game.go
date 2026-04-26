@@ -12,33 +12,36 @@ import (
 
 type Game struct {
 	RoomCode    string
-	Status     string
-	Players    map[string]*types.PlayerState
-	MainCard   string
-	Deck       *Deck
+	Status      string
+	Players     map[string]*types.PlayerState
+	MainCard    string
+	Deck        *Deck
 	HelperCards []Card
-	Validator  *Validator
-	LastPlay   time.Time
-	LastPlayer string
-	mu         sync.RWMutex
+	Validator   *Validator
+	LastPlay    time.Time
+	LastPlayer  string
+	mu          sync.RWMutex
 }
 
 func NewGame(roomCode string) *Game {
 	return &Game{
 		RoomCode:    roomCode,
-		Status:     "waiting",
-		Players:    make(map[string]*types.PlayerState),
-		MainCard:   "",
-		Deck:       NewDeck(),
+		Status:      "waiting",
+		Players:     make(map[string]*types.PlayerState),
+		MainCard:    "",
+		Deck:        NewDeck(),
 		HelperCards: []Card{},
-		Validator:  nil,
-		LastPlay:   time.Time{},
+		Validator:   nil,
+		LastPlay:    time.Time{},
 	}
 }
 
 func (g *Game) Init(dictionaryFile string) error {
 	v, err := NewValidator(dictionaryFile)
 	if err != nil {
+		return err
+	}
+	if err := v.loadDictionary(); err != nil {
 		return err
 	}
 	g.Validator = v
@@ -103,7 +106,9 @@ func (g *Game) Start() error {
 
 	if g.Validator == nil {
 		v, _ := NewValidator("")
-		g.Validator = v
+		if err := v.loadDictionary(); err == nil {
+			g.Validator = v
+		}
 	}
 
 	mainCard := GenerateMainCard()
@@ -122,12 +127,12 @@ func (g *Game) Start() error {
 }
 
 type PlayResult struct {
-	Valid     bool
+	Valid       bool
 	NewMainCard string
-	Word      string
-	Message   string
-	PlayerID  string
-	Timestamp time.Time
+	Word        string
+	Message     string
+	PlayerID    string
+	Timestamp   time.Time
 }
 
 func (g *Game) PlayCards(playerID string, cards []string, position string) *PlayResult {
@@ -172,12 +177,12 @@ func (g *Game) PlayCards(playerID string, cards []string, position string) *Play
 	g.LastPlayer = playerID
 
 	return &PlayResult{
-		Valid:      true,
+		Valid:       true,
 		NewMainCard: newMainCard,
-		Word:       word,
-		Message:    "valid",
-		PlayerID:   playerID,
-		Timestamp:  g.LastPlay,
+		Word:        word,
+		Message:     "valid",
+		PlayerID:    playerID,
+		Timestamp:   g.LastPlay,
 	}
 }
 
@@ -270,10 +275,10 @@ func (g *Game) GetState() *types.GameState {
 	}
 
 	return &types.GameState{
-		RoomCode:    g.RoomCode,
-		Status:     g.Status,
-		Players:    players,
-		MainCard:   g.MainCard,
+		RoomCode:  g.RoomCode,
+		Status:    g.Status,
+		Players:   players,
+		MainCard:  g.MainCard,
 		Timestamp: g.LastPlay.Unix(),
 	}
 }
