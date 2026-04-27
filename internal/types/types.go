@@ -51,6 +51,7 @@ type GameState struct {
 	Players     []PlayerState `json:"players"`
 	MainCard    string        `json:"mainCard"`
 	Leaderboard []PlayerState `json:"leaderboard"`
+	Timer       int           `json:"timer"`
 	Timestamp   int64         `json:"timestamp"`
 }
 

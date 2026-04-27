@@ -1,0 +1,472 @@
+Masalah utamanya jelas: ada banyak suku kata “mati” (hanya kepakai 1–2 kata). Itu bikin gameplay seret, RNG tinggi, dan pemain sering stuck. Jadi kita harus **buang suku langka** dan fokus ke **suku reusable (dipakai ≥4–5 kata)**.
+
+Di bawah ini versi **deck revisi + 200 kata** yang jauh lebih “playable”.
+
+---
+
+# ✅ PRINSIP PERBAIKAN
+
+* Hapus suku ultra-jarang: **WAB, BOH, DUP, JUM, RAJ, dll**
+* Kurangi suku spesifik: **JUNG, TOR, HON**
+* Fokus ke pola umum:
+
+  * CV: MA, KA, SA, dll
+  * CVC umum: KAN, TAN, RAN, MAN, dll
+  * Nasal: ANG, ING, UN
+* Pastikan tiap suku bisa dipakai di banyak kata
+
+---
+
+# 🎴 DECK BARU (LEBIH BALANCED)
+
+## Vokal A (core utama)
+
+MA x12
+LA x12
+SA x10
+RA x10
+TA x8
+NA x8
+KA x8
+PA x6
+BA x6
+DA x6
+GA x5
+JA x4
+
+---
+
+## Vokal I
+
+RI x6
+LI x6
+BI x5
+GI x5
+NI x5
+TI x5
+SI x4
+MI x4
+PI x4
+KI x4
+
+---
+
+## Vokal U
+
+MU x6
+LU x6
+BU x5
+RU x5
+DU x4
+KU x4
+PU x4
+SU x4
+TU x4
+
+---
+
+## Vokal E/O (dipertahankan tapi aman)
+
+SE x6
+KE x6
+ME x6
+PE x5
+TE x4
+BE x4
+
+KO x3
+MO x3
+
+---
+
+## Imbuhan (penting untuk variasi)
+
+DI x6
+KE x5
+SE x5
+ME x5
+BER x4
+TER x4
+PE x4
+PER x3
+
+---
+
+## Suku tertutup (WAJIB reusable)
+
+KAN x8
+MAN x6
+LAN x6
+RAN x6
+TAN x5
+SAR x5
+LAM x5
+HAT x4
+RAH x4
+PAT x4
+PAR x4
+
+---
+
+## Nasal & fleksibel
+
+ANG x8
+ING x6
+UN x5
+AN x5
+AM x4
+
+---
+
+## Akhiran
+
+NYA x4
+
+---
+
+# ❌ DIHAPUS TOTAL
+
+WAB, BOH, DUP, JUM, TOR, HON, RAJ, dll
+(alasan: tidak reusable)
+
+---
+
+# 🧠 200 KATA (VERSI PLAYABLE)
+
+Semua kata di bawah bisa dibentuk dari deck baru dan saling reuse tinggi:
+
+---
+
+## Kata dasar (umum banget)
+
+1. MAKAN
+2. MINUM
+3. MANDI
+4. MASAK
+5. MASUK
+6. MALAM
+7. MATA
+8. MANA
+9. MAJU
+10. MALU
+
+---
+
+## Keluarga MA (biar reusable tinggi)
+
+11. MANIS
+12. MANJA
+13. MANTAP
+14. MANTAN
+15. MAMPU
+16. MARAH
+17. RAMAH
+18. RUMAH
+19. RASA
+20. RASAKAN
+
+---
+
+## Keluarga LA
+
+21. LARI
+22. LAGI
+23. LAMA
+24. LALU
+25. LAMPU
+26. LAPAR
+27. LAYAR
+28. LARANG
+29. LANTAI
+30. LAMBAT
+
+---
+
+## Keluarga KA
+
+31. KATA
+32. KAKI
+33. KAMU
+34. KAMI
+35. KASAR
+36. KASIH
+37. KASUR
+38. KAPAL
+39. KABAR
+40. KANAN
+
+---
+
+## Keluarga SA
+
+41. SAMA
+42. SANA
+43. SAKIT
+44. SABAR
+45. SALAM
+46. SALAH
+47. SAMPAI
+48. SAMBUT
+49. SARANG
+50. SARAPAN
+
+---
+
+## Keluarga TA
+
+51. TAHU
+52. TALI
+53. TANGAN
+54. TANAH
+55. TARIK
+56. TARUH
+57. TAMBAH
+58. TAMPIL
+59. TAMPUNG
+60. TANYA
+
+---
+
+## Keluarga NA
+
+61. NAMA
+62. NANTI
+63. NANGIS
+64. NAIK
+65. NARIK
+66. NARUH
+67. NAMPAK
+68. NUNGGU
+69. NUNJUK
+70. NULIS
+
+---
+
+## Keluarga PA
+
+71. PAKAI
+72. PAKSA
+73. PANAS
+74. PANGGIL
+75. PANTAI
+76. PARAH
+77. PARUT
+78. PASAR
+79. PASANG
+80. PASTI
+
+---
+
+## Keluarga BA
+
+81. BACA
+82. BAKAR
+83. BAGUS
+84. BANYAK
+85. BARU
+86. BARANG
+87. BALIK
+88. BANTU
+89. BANGUN
+90. BATAL
+
+---
+
+## Keluarga DA
+
+91. DATANG
+92. DAPAT
+93. DALAM
+94. DARAH
+95. DARI
+96. DUDUK
+97. DUKUNG
+98. DUNIA
+99. DENGAN
+100. DENGAR
+
+---
+
+## Keluarga GA
+
+101. GALI
+102. GAGAL
+103. GAMPANG
+104. GAMBAR
+105. GANTI
+106. GARIS
+107. GADIS
+108. GADUH
+109. GABUNG
+110. GAJAH
+
+---
+
+## Keluarga RA
+
+111. RASA
+112. RAKIT
+113. RAKYAT
+114. RAMAI
+115. RAMPING
+116. RANTAI
+117. RANGKAI
+118. RANGKAP
+119. RANCAK
+120. RAPAT
+
+---
+
+## Dengan imbuhan (biar makin fleksibel)
+
+121. DIMAKAN
+122. DIAMBIL
+123. DITARIK
+124. DITARUH
+125. DIBACA
+126. DIBUAT
+127. DIBUKA
+128. DITUTUP
+129. DILIHAT
+130. DIDAPAT
+
+---
+
+## BER-
+
+131. BERJALAN
+132. BERLARI
+133. BERMAIN
+134. BERKATA
+135. BERMAKNA
+136. BERASA
+137. BERANI
+138. BERAT
+139. BERLAMA
+140. BERKUMPUL
+
+---
+
+## TER-
+
+141. TERLIHAT
+142. TERASA
+143. TERBUKA
+144. TERTUTUP
+145. TERLALU
+146. TERANG
+147. TERJADI
+148. TERBACA
+149. TERPAKAI
+150. TERAMBIL
+
+---
+
+## KE- / SE-
+
+151. KEMANA
+152. KEMARI
+153. KEPALA
+154. KELUAR
+155. KELUARGA
+156. SEMUA
+157. SELALU
+158. SELAMA
+159. SEBAGAI
+160. SEBANYAK
+
+---
+
+## Kombinasi akhir (reuse tinggi)
+
+161. MAKANAN
+162. MINUMAN
+163. MASAKAN
+164. RUMAHAN
+165. LARANGAN
+166. TAMPUNGAN
+167. PANGGILAN
+168. BANGUNAN
+169. JALANAN
+170. TARUHAN
+
+---
+
+## Sisanya (variasi aman)
+
+171. JALAN
+
+172. JARAK
+
+173. JARING
+
+174. JARINGAN
+
+175. JAGA
+
+176. JUAL
+
+177. JUMPA
+
+178. JADI
+
+179. JANGAN
+
+180. JANGKA
+
+181. KUMPUL
+
+182. KUMPULAN
+
+183. KUNCI
+
+184. KUNJUNG
+
+185. KUNJUNGAN
+
+186. KURANG
+
+187. KURANGAN
+
+188. KURUNG
+
+189. KURUNGAN
+
+190. KURSI
+
+191. LENGKAP
+
+192. LENGKAPI
+
+193. LANGKAH
+
+194. LANGSUNG
+
+195. LANGGANAN
+
+196. LANTANG
+
+197. LANTARAN
+
+198. LAMAR
+
+199. LAMARAN
+
+200. LAMBANG
+
+---
+
+# 🔥 HASILNYA
+
+Deck ini:
+
+* Lebih **sering kepakai ulang**
+* Minim dead card
+* Lebih fun & cepat bikin kata
+* Cocok untuk gameplay kompetitif
+
+---
+
+Kalau mau, next step gue bisa:
+👉 bikin **simulasi probabilitas (berapa % stuck)**
+👉 atau **auto-generate word dari deck (biar scalable ke 1000 kata)**

@@ -247,6 +247,39 @@ input[type="text"]::placeholder {
     gap: 12px;
 }
 
+.room-timer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;
+    background: var(--card-bg);
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.timer-label {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+#timer-display {
+    color: var(--primary);
+    min-width: 50px;
+    text-align: center;
+}
+
+#timer-display.urgent {
+    color: var(--error);
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
 .leaderboard-compact {
     display: flex;
     align-items: center;

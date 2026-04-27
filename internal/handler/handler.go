@@ -147,11 +147,14 @@ func (h *Handler) handleStartGame(conn *websocket.Conn) {
 		return
 	}
 
+	g.StartTimer()
 	room.Status = "playing"
 
-	log.Printf("Game started in room %s", client.RoomCode)
+	log.Printf("Game started in room %s with 5 min timer", client.RoomCode)
 
 	h.broadcastGameState(client.RoomCode)
+
+	go h.monitorRoomTimer(client.RoomCode)
 }
 
 func (h *Handler) handlePlayCards(conn *websocket.Conn, payload interface{}) {
@@ -375,6 +378,54 @@ func (h *Handler) sendError(conn *websocket.Conn, message string) {
 		Type:    "error",
 		Payload: types.ErrorPayload{Message: message},
 	})
+}
+
+func (h *Handler) monitorRoomTimer(roomCode string) {
+	game := h.hub.GetGame(roomCode)
+	if game == nil {
+		return
+	}
+
+	ticker := time.NewTicker(1 * time.Second)
+	defer ticker.Stop()
+
+	for range ticker.C {
+		if game.Status != "playing" {
+			return
+		}
+
+		h.broadcastTimer(roomCode)
+
+		if game.IsTimerExpired() {
+			winnerID := game.GetWinner()
+			h.broadcastGameOver(roomCode, winnerID)
+			log.Printf("Room %s timer expired, winner: %s", roomCode, winnerID)
+			return
+		}
+	}
+}
+
+func (h *Handler) broadcastTimer(roomCode string) {
+	game := h.hub.GetGame(roomCode)
+	if game == nil {
+		return
+	}
+
+	room := h.hub.GetRoom(roomCode)
+	if room == nil {
+		return
+	}
+
+	msg := types.WsMessage{
+		Type: "timer",
+		Payload: map[string]interface{}{
+			"timer": game.GetTimeLeft(),
+		},
+	}
+
+	for conn := range room.Clients {
+		conn.WriteJSON(msg)
+	}
 }
 
 func (h *Handler) broadcastRoomState(roomCode string) {

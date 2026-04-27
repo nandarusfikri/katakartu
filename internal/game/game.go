@@ -12,16 +12,18 @@ import (
 )
 
 type Game struct {
-	RoomCode    string
-	Status      string
-	Players     map[string]*types.PlayerState
-	MainCard    string
-	Deck        *Deck
-	Validator   *Validator
-	LastPlay    time.Time
-	LastPlayer  string
-	PendingVote *VoteSession
-	mu          sync.RWMutex
+	RoomCode      string
+	Status        string
+	Players       map[string]*types.PlayerState
+	MainCard      string
+	Deck          *Deck
+	Validator     *Validator
+	LastPlay      time.Time
+	LastPlayer    string
+	PendingVote   *VoteSession
+	Timer         time.Time
+	TimerDuration int
+	mu            sync.RWMutex
 }
 
 type VoteSession struct {
@@ -34,6 +36,8 @@ type VoteSession struct {
 	TotalPlayers  int
 	Deadline      time.Time
 }
+
+const DefaultTimerDuration = 5 * 60
 
 func NewGame(roomCode string) *Game {
 	return &Game{
@@ -205,16 +209,6 @@ func (g *Game) DrawCard(playerID string) (string, error) {
 	return card.Syllable, nil
 }
 
-func (g *Game) ChangeMainCard() (string, error) {
-	g.mu.Lock()
-	defer g.mu.Unlock()
-
-	newCard := GenerateMainCard()
-	oldCard := g.MainCard
-	g.MainCard = newCard.Syllable
-	return oldCard, nil
-}
-
 func (g *Game) GetState() *types.GameState {
 	g.mu.RLock()
 	defer g.mu.RUnlock()
@@ -230,6 +224,7 @@ func (g *Game) GetState() *types.GameState {
 		Players:     players,
 		MainCard:    g.MainCard,
 		Leaderboard: g.getLeaderboardLocked(),
+		Timer:       g.GetTimeLeft(),
 		Timestamp:   g.LastPlay.Unix(),
 	}
 }
@@ -254,6 +249,24 @@ func (g *Game) GetLeaderboard() []types.PlayerState {
 	g.mu.RLock()
 	defer g.mu.RUnlock()
 	return g.getLeaderboardLocked()
+}
+
+func (g *Game) GetTimeLeft() int {
+	g.mu.RLock()
+	defer g.mu.RUnlock()
+
+	if g.Timer.IsZero() {
+		return 0
+	}
+
+	remaining := time.Since(g.Timer)
+	elapsed := int(remaining.Seconds())
+	left := g.TimerDuration - elapsed
+
+	if left < 0 {
+		return 0
+	}
+	return left
 }
 
 func (g *Game) CheckWinner() (string, bool) {
@@ -384,20 +397,6 @@ func (g *Game) ExecuteVoteIfExpired() *VoteSession {
 	return vote
 }
 
-func (g *Game) GetSecondsLeft() int {
-	g.mu.RLock()
-	defer g.mu.RUnlock()
-
-	if g.PendingVote == nil {
-		return 0
-	}
-	remaining := time.Until(g.PendingVote.Deadline)
-	if remaining < 0 {
-		return 0
-	}
-	return int(remaining.Seconds())
-}
-
 func (g *Game) ExecuteVote(vote *VoteSession) bool {
 	g.mu.Lock()
 	defer g.mu.Unlock()
@@ -414,4 +413,48 @@ func (g *Game) ExecuteVote(vote *VoteSession) bool {
 		return true
 	}
 	return false
+}
+
+func (g *Game) StartTimer() {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.Timer = time.Now()
+	g.TimerDuration = DefaultTimerDuration
+}
+
+func (g *Game) IsTimerExpired() bool {
+	g.mu.RLock()
+	defer g.mu.RUnlock()
+
+	if g.Timer.IsZero() {
+		return false
+	}
+
+	remaining := time.Since(g.Timer)
+	elapsed := int(remaining.Seconds())
+	return elapsed >= g.TimerDuration
+}
+
+func (g *Game) ResetTimer() {
+	g.mu.Lock()
+	defer g.mu.Unlock()
+	g.Timer = time.Time{}
+	g.TimerDuration = 0
+}
+
+func (g *Game) GetWinner() string {
+	g.mu.RLock()
+	defer g.mu.RUnlock()
+
+	winnerID := ""
+	highestScore := -9999
+
+	for id, p := range g.Players {
+		if p.Score > highestScore {
+			highestScore = p.Score
+			winnerID = id
+		}
+	}
+
+	return winnerID
 }

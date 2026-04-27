@@ -2,6 +2,7 @@ package game
 
 import (
 	"bufio"
+	"log"
 	"os"
 	"strings"
 	"sync"
@@ -9,29 +10,46 @@ import (
 )
 
 type Validator struct {
-	dictionary     map[string]bool
-	dictionaryPath string
-	lastModified   time.Time
-	mu             sync.RWMutex
+	dictionary         map[string]bool
+	dictionaryPath     string
+	dictionaryPathList string
+	lastModified       time.Time
+	mu                 sync.RWMutex
 }
 
 func NewValidator(filename string) (*Validator, error) {
 	v := &Validator{
-		dictionary:     make(map[string]bool),
-		dictionaryPath: "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/wordlist.txt",
+		dictionary:         make(map[string]bool),
+		dictionaryPath:     "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/wordlist.txt",
+		dictionaryPathList: "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/list_1.0.0.txt",
 	}
 	return v, nil
 }
 
 func (v *Validator) loadDictionary() error {
-	file, err := os.Open(v.dictionaryPath)
+	v.mu.Lock()
+	v.dictionary = make(map[string]bool)
+
+	if err := v.loadFromFile(v.dictionaryPath); err != nil {
+		log.Printf("Warning: could not load %s: %v", v.dictionaryPath, err)
+	}
+
+	if err := v.loadFromFileList(v.dictionaryPathList); err != nil {
+		log.Printf("Warning: could not load %s: %v", v.dictionaryPathList, err)
+	}
+
+	v.mu.Unlock()
+	log.Printf("Dictionary loaded with %d words", len(v.dictionary))
+	return nil
+}
+
+func (v *Validator) loadFromFile(path string) error {
+	file, err := os.Open(path)
 	if err != nil {
 		return err
 	}
 	defer file.Close()
 
-	v.mu.Lock()
-	v.dictionary = make(map[string]bool)
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
@@ -46,8 +64,27 @@ func (v *Validator) loadDictionary() error {
 			}
 		}
 	}
-	v.mu.Unlock()
+	return nil
+}
 
+func (v *Validator) loadFromFileList(path string) error {
+	file, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := strings.TrimSpace(scanner.Text())
+		if line == "" {
+			continue
+		}
+		word := strings.ToUpper(line)
+		if word != "" {
+			v.dictionary[word] = true
+		}
+	}
 	return nil
 }
 

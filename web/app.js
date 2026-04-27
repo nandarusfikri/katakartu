@@ -74,8 +74,16 @@ function handleMessage(msg) {
             break;
 
         case 'game_over':
+            if (window.timerInterval) {
+                clearInterval(window.timerInterval);
+                window.timerInterval = null;
+            }
             showToast(`PERMAINAN SELESAI! Pemenang: ${msg.payload.winnerName}`, 'success');
             showScreen('lobby');
+            break;
+
+        case 'timer':
+            updateTimerDisplay(msg.payload.timer);
             break;
 
         case 'error':
@@ -332,6 +340,8 @@ function updateLobby() {
     startBtn.disabled = !isHost || gameState.players.length < 1;
 }
 
+window.timerInterval = null;
+
 function updateGame() {
     showScreen('game');
     selectedPrefixCards = [];
@@ -341,6 +351,56 @@ function updateGame() {
     updatePreview();
     renderHand();
     updateLeaderboard();
+    startTimerDisplay();
+}
+
+function startTimerDisplay() {
+    if (window.timerInterval) {
+        clearInterval(window.timerInterval);
+    }
+
+    window.timerInterval = setInterval(() => {
+        if (!gameState || gameState.status !== 'playing') {
+            clearInterval(window.timerInterval);
+            return;
+        }
+
+        const timerEl = document.getElementById('timer-display');
+        if (!timerEl || gameState.timer === undefined || gameState.timer === 0) {
+            timerEl.textContent = '0:00';
+            return;
+        }
+
+        const seconds = gameState.timer;
+        const minutes = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        timerEl.textContent = `${minutes}:${secs.toString().padStart(2, '0')}`;
+
+        if (seconds <= 30) {
+            timerEl.classList.add('urgent');
+        } else {
+            timerEl.classList.remove('urgent');
+        }
+    }, 1000);
+}
+
+function updateTimerDisplay(seconds) {
+    const timerEl = document.getElementById('timer-display');
+    if (!timerEl) return;
+
+    const minutes = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    timerEl.textContent = `${minutes}:${secs.toString().padStart(2, '0')}`;
+
+    if (seconds <= 30) {
+        timerEl.classList.add('urgent');
+    } else {
+        timerEl.classList.remove('urgent');
+    }
+
+    if (gameState) {
+        gameState.timer = seconds;
+    }
 }
 
 function updateLeaderboard() {
