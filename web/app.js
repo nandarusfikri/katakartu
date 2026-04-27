@@ -9,7 +9,8 @@ let gameState = null;
 let canPlay = true;
 let selectedPrefixCards = [];
 let selectedSuffixCards = [];
-let selectedFromHand = null;
+let selectedFromHandId = null;
+let handCardMap = {};
 
 function connect() {
     ws = new WebSocket(WS_URL);
@@ -171,13 +172,14 @@ function updateZoneDisplay(zoneId, cards, zoneType) {
         cards.forEach((card, index) => {
             const cardEl = document.createElement('div');
             cardEl.className = 'selected-card';
-            cardEl.textContent = card;
-            cardEl.dataset.syllable = card;
+            cardEl.textContent = card.syllable;
+            cardEl.dataset.syllable = card.syllable;
+            cardEl.dataset.cardId = card.id;
             cardEl.dataset.index = index;
             
             cardEl.addEventListener('click', (e) => {
                 e.stopPropagation();
-                removeCardFromZone(zoneType, index);
+                removeCardFromZone(zoneType, card.id);
             });
 
             zone.appendChild(cardEl);
@@ -186,36 +188,41 @@ function updateZoneDisplay(zoneId, cards, zoneType) {
     }
 }
 
-function removeCardFromZone(zoneType, index) {
+function removeCardFromZone(zoneType, cardId) {
     if (zoneType === 'prefix') {
-        selectedPrefixCards.splice(index, 1);
+        selectedPrefixCards = selectedPrefixCards.filter(card => card.id !== cardId);
     } else {
-        selectedSuffixCards.splice(index, 1);
+        selectedSuffixCards = selectedSuffixCards.filter(card => card.id !== cardId);
     }
     updatePreview();
     renderHand();
 }
 
 function addSelectedToZone(zoneType) {
-    if (selectedFromHand) {
-        if (zoneType === 'prefix') {
-            if (!selectedPrefixCards.includes(selectedFromHand)) {
-                selectedPrefixCards.push(selectedFromHand);
-            }
-        } else {
-            if (!selectedSuffixCards.includes(selectedFromHand)) {
-                selectedSuffixCards.push(selectedFromHand);
+    if (selectedFromHandId) {
+        const card = handCardMap[selectedFromHandId];
+        if (card) {
+            if (zoneType === 'prefix') {
+                const alreadyExists = selectedPrefixCards.some(c => c.id === selectedFromHandId);
+                if (!alreadyExists) {
+                    selectedPrefixCards.push(card);
+                }
+            } else {
+                const alreadyExists = selectedSuffixCards.some(c => c.id === selectedFromHandId);
+                if (!alreadyExists) {
+                    selectedSuffixCards.push(card);
+                }
             }
         }
-        selectedFromHand = null;
+        selectedFromHandId = null;
         updatePreview();
         renderHand();
     }
 }
 
 function updateWordPreview() {
-    const prefix = selectedPrefixCards.join('');
-    const suffix = selectedSuffixCards.join('');
+    const prefix = selectedPrefixCards.map(card => card.syllable).join('');
+    const suffix = selectedSuffixCards.map(card => card.syllable).join('');
     const main = gameState?.mainCard || '';
     const word = prefix + main + suffix;
 
@@ -234,8 +241,8 @@ function submitPlay() {
     send({
         type: 'play_cards',
         payload: {
-            prefixCards: selectedPrefixCards,
-            suffixCards: selectedSuffixCards
+            prefixCards: selectedPrefixCards.map(card => card.syllable),
+            suffixCards: selectedSuffixCards.map(card => card.syllable)
         }
     });
 }
@@ -296,7 +303,7 @@ function hideVotePopup() {
 function clearSelection() {
     selectedPrefixCards = [];
     selectedSuffixCards = [];
-    selectedFromHand = null;
+    selectedFromHandId = null;
     updatePreview();
     renderHand();
 }
@@ -346,7 +353,8 @@ function updateGame() {
     showScreen('game');
     selectedPrefixCards = [];
     selectedSuffixCards = [];
-    selectedFromHand = null;
+    selectedFromHandId = null;
+    handCardMap = {};
     canPlay = true;
     updatePreview();
     renderHand();
@@ -428,24 +436,32 @@ function renderHand() {
     const me = gameState.players.find(p => p.id === myClientId);
     if (!me || !me.cards) return;
 
-    me.cards.forEach(syllable => {
-        const isSelected = selectedPrefixCards.includes(syllable) || selectedSuffixCards.includes(syllable);
-        if (isSelected) return;
+    const selectedCardIds = new Set([
+        ...selectedPrefixCards.map(c => c.id),
+        ...selectedSuffixCards.map(c => c.id)
+    ]);
+
+    me.cards.forEach((syllable, index) => {
+        const cardId = `hand_${syllable}_${index}`;
+        handCardMap[cardId] = { id: cardId, syllable: syllable };
+        
+        if (selectedCardIds.has(cardId)) return;
 
         const cardEl = document.createElement('div');
         cardEl.className = 'hand-card';
         cardEl.textContent = syllable;
         cardEl.dataset.syllable = syllable;
+        cardEl.dataset.cardId = cardId;
         
-        if (selectedFromHand === syllable) {
+        if (selectedFromHandId === cardId) {
             cardEl.classList.add('selected-from-hand');
         }
 
         cardEl.addEventListener('click', () => {
-            if (selectedFromHand === syllable) {
-                selectedFromHand = null;
+            if (selectedFromHandId === cardId) {
+                selectedFromHandId = null;
             } else {
-                selectedFromHand = syllable;
+                selectedFromHandId = cardId;
             }
             renderHand();
         });
@@ -492,7 +508,8 @@ function handlePlayResult(payload) {
         canPlay = true;
         selectedPrefixCards = [];
         selectedSuffixCards = [];
-        selectedFromHand = null;
+        selectedFromHandId = null;
+        handCardMap = {};
         messageEl.classList.add('hidden');
         updatePreview();
         renderHand();
