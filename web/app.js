@@ -246,9 +246,7 @@ function updateWordPreview() {
     const prefix = selectedPrefixCards.map(card => card.syllable).join('');
     const suffix = selectedSuffixCards.map(card => card.syllable).join('');
     const main = gameState?.mainCard || '';
-    const word = prefix + main + suffix;
 
-    document.getElementById('word-preview').textContent = word || '---';
     document.getElementById('preview-prefix').textContent = prefix;
     document.getElementById('main-card').textContent = main;
     document.getElementById('preview-suffix').textContent = suffix;
