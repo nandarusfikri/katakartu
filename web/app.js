@@ -12,6 +12,17 @@ let selectedSuffixCards = [];
 let selectedFromHandId = null;
 let handCardMap = {};
 
+function copyRoomCode() {
+    const code = document.getElementById('lobby-room-code').textContent;
+    if (code && code !== '----') {
+        navigator.clipboard.writeText(code).then(() => {
+            showToast('Kode room disalin!', 'success');
+        }).catch(() => {
+            showToast('Gagal menyalin kode', 'error');
+        });
+    }
+}
+
 function connect() {
     ws = new WebSocket(WS_URL);
 

@@ -25,6 +25,10 @@ body {
     color: var(--text);
     min-height: 100vh;
     overflow-x: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
 
 .container {
@@ -214,6 +218,35 @@ input[type="text"]::placeholder {
     color: var(--primary);
     letter-spacing: 4px;
     margin-top: 8px;
+}
+
+.room-code-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.copy-btn {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 4px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.copy-btn:hover {
+    color: var(--primary);
+    background: var(--card-bg);
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
 }
 
 .players-list {
