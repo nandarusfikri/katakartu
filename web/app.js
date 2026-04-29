@@ -512,10 +512,8 @@ function handlePlayResult(payload) {
     messageEl.classList.remove('hidden', 'success', 'error');
 
     if (payload.valid) {
-        messageEl.classList.add('success');
-        messageEl.textContent = `${payload.playerName} menjawab BENAR! Kata: ${payload.word}`;
-
         playCorrectSound();
+        showAnswerPopup(`${payload.playerName} BENAR! Kata: ${payload.word}`);
 
         document.getElementById('main-card').textContent = payload.newMainCard;
         document.getElementById('main-card-display').textContent = payload.newMainCard;
@@ -533,6 +531,7 @@ function handlePlayResult(payload) {
         selectedFromHandId = null;
         handCardMap = {};
         messageEl.classList.add('hidden');
+        hideAnswerPopup();
         updatePreview();
         renderHand();
     }, 3000);
@@ -561,4 +560,16 @@ function playCorrectSound() {
             s.play().catch(e2 => console.error('Both methods failed:', e2));
         });
     }
+}
+
+function showAnswerPopup(text) {
+    const popup = document.getElementById('answer-popup');
+    const popupText = document.getElementById('answer-popup-text');
+    popupText.textContent = text;
+    popup.classList.remove('hidden');
+}
+
+function hideAnswerPopup() {
+    const popup = document.getElementById('answer-popup');
+    popup.classList.add('hidden');
 }

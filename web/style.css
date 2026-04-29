@@ -669,6 +669,39 @@ input[type="text"]::placeholder {
     transition: all 0.3s;
 }
 
+.answer-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 200;
+    animation: popIn 0.3s ease;
+}
+
+.answer-popup.hidden {
+    display: none;
+}
+
+.answer-popup-content {
+    background: var(--card-bg);
+    border: 2px solid var(--success);
+    border-radius: 16px;
+    padding: 20px 32px;
+    text-align: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.answer-popup-text {
+    color: var(--success);
+    font-size: 18px;
+    font-weight: 700;
+}
+
+@keyframes popIn {
+    from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
 .toast.hidden {
     opacity: 0;
     pointer-events: none;
