@@ -148,24 +148,21 @@
                         </div>
                     </div>
 
+                    <div class="actions">
+                        <button class="btn btn-secondary btn-sm" onclick="drawCard()">
+                            Ambil
+                        </button>
+                        <button class="btn btn-primary btn-sm" id="btn-submit" onclick="submitPlay()" disabled>
+                            Submit
+                        </button>
+                        <button class="btn btn-secondary btn-sm" onclick="clearSelection()">
+                            Reset
+                        </button>
+                    </div>
+
                     <div class="hand-area">
                         <span class="label">Kartu Kamu</span>
                         <div id="player-hand" class="hand-cards" data-zone="hand"></div>
-                    </div>
-
-                    <div class="actions">
-                        <button class="btn btn-secondary" onclick="drawCard()">
-                            Ambil Kartu
-                        </button>
-                        <button class="btn btn-primary" id="btn-submit" onclick="submitPlay()" disabled>
-                            Submit
-                        </button>
-                        <button class="btn btn-secondary" onclick="clearSelection()">
-                            Reset
-                        </button>
-                        <button class="btn btn-warning" onclick="requestChangeMain()">
-                            Ganti Main
-                        </button>
                     </div>
                 </div>
             </section>

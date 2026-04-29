@@ -612,12 +612,15 @@ input[type="text"]::placeholder {
 
 .actions {
     display: flex;
-    gap: 8px;
+    gap: 6px;
+    padding: 8px 0;
 }
 
 .actions .btn {
-    flex:1;
-    min-width: 80px;
+    flex: 1;
+    min-width: 60px;
+    padding: 8px 4px;
+    font-size: 12px;
 }
 
 .duration-options {
