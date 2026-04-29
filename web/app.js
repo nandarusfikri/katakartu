@@ -517,6 +517,8 @@ function handlePlayResult(payload) {
         messageEl.classList.add('success');
         messageEl.textContent = `${payload.playerName} menjawab BENAR! Kata: ${payload.word}`;
 
+        playCorrectSound();
+
         document.getElementById('main-card').textContent = payload.newMainCard;
         document.getElementById('main-card-display').textContent = payload.newMainCard;
     } else {
@@ -551,3 +553,14 @@ function disconnect() {
 document.addEventListener('DOMContentLoaded', () => {
     setupClickZones();
 });
+
+function playCorrectSound() {
+    const sound = document.getElementById('correct-sound');
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(e => {
+            const s = new Audio('sounds/correct.mp3');
+            s.play().catch(e2 => console.error('Both methods failed:', e2));
+        });
+    }
+}
