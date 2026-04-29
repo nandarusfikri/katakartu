@@ -62,6 +62,7 @@ type WsMessage struct {
 
 type CreateRoomMsg struct {
 	Username string `json:"username"`
+	Duration int    `json:"duration"`
 }
 
 type JoinRoomMsg struct {

@@ -11,6 +11,17 @@ let selectedPrefixCards = [];
 let selectedSuffixCards = [];
 let selectedFromHandId = null;
 let handCardMap = {};
+let selectedDuration = 180;
+
+function selectDuration(seconds) {
+    selectedDuration = seconds;
+    document.querySelectorAll('.duration-btn').forEach(btn => {
+        btn.classList.remove('selected');
+        if (parseInt(btn.dataset.duration) === seconds) {
+            btn.classList.add('selected');
+        }
+    });
+}
 
 function copyRoomCode() {
     const code = document.getElementById('lobby-room-code').textContent;
@@ -130,7 +141,7 @@ function createRoom() {
     connect();
 
     ws.onopen = () => {
-        send({ type: 'create_room', payload: { username } });
+        send({ type: 'create_room', payload: { username, duration: selectedDuration } });
     };
 }
 

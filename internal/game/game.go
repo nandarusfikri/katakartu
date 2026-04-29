@@ -418,7 +418,9 @@ func (g *Game) StartTimer() {
 	g.mu.Lock()
 	defer g.mu.Unlock()
 	g.Timer = time.Now()
-	g.TimerDuration = DefaultTimerDuration
+	if g.TimerDuration == 0 {
+		g.TimerDuration = DefaultTimerDuration
+	}
 }
 
 func (g *Game) IsTimerExpired() bool {

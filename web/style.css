@@ -616,7 +616,43 @@ input[type="text"]::placeholder {
 }
 
 .actions .btn {
+    flex:1;
+    min-width: 80px;
+}
+
+.duration-options {
+    display: flex;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.duration-btn {
     flex: 1;
+    padding: 8px 6px;
+    background: var(--bg);
+    border: 2px solid var(--card-border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.duration-btn:hover {
+    border-color: var(--text-muted);
+}
+
+.duration-btn.selected {
+    border-color: var(--primary);
+    color: var(--primary);
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.duration-btn:active {
+    transform: scale(0.98);
 }
 
 .toast {

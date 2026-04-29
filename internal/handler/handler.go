@@ -49,6 +49,10 @@ func (h *Handler) handleCreateRoom(conn *websocket.Conn, payload interface{}) {
 		return
 	}
 
+	if req.Duration == 0 {
+		req.Duration = 180
+	}
+
 	client := h.hub.GetClient(conn)
 	if client != nil {
 		client.Username = req.Username
@@ -56,7 +60,12 @@ func (h *Handler) handleCreateRoom(conn *websocket.Conn, payload interface{}) {
 
 	code := h.hub.CreateRoom(client)
 
-	log.Printf("Room created: %s by %s", code, req.Username)
+	game := h.hub.GetGame(code)
+	if game != nil {
+		game.TimerDuration = req.Duration
+	}
+
+	log.Printf("Room created: %s by %s with duration %d seconds", code, req.Username, req.Duration)
 
 	conn.WriteJSON(types.WsMessage{
 		Type: "room_created",
