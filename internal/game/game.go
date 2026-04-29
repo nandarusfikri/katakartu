@@ -126,7 +126,6 @@ func (g *Game) PlayCards(playerID string, prefixCards []string, suffixCards []st
 	word := g.buildWord(prefixCards, suffixCards)
 
 	if !g.Validator.IsValid(word) {
-		player.Score -= 10
 		return &PlayResult{Valid: false, Message: "kata tidak valid: " + word}
 	}
 

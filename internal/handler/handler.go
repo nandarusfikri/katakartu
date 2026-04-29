@@ -181,8 +181,6 @@ func (h *Handler) handlePlayCards(conn *websocket.Conn, payload interface{}) {
 
 	if !result.Valid {
 		h.sendError(conn, result.Message)
-		h.broadcastPlayResult(client.RoomCode, client.ID, result)
-		h.broadcastGameState(client.RoomCode)
 		return
 	}
 
