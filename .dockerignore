@@ -1,0 +1,6 @@
+.git
+.air.toml
+tmp/
+*.md
+issue*.txt
+DEVELOPMENT_LOG.txt

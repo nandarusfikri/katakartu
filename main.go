@@ -16,6 +16,7 @@ import (
 
 const (
 	HOST = ":8080"
+	PORT = "8080"
 )
 
 var upgrader = websocket.Upgrader{
@@ -40,10 +41,16 @@ func main() {
 	http.HandleFunc("/ws", handleWebSocket)
 	http.HandleFunc("/words", handleWords)
 
-	log.Printf("Server running at http://localhost%s", HOST)
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = PORT
+	}
+	addr := ":" + port
+
+	log.Printf("Server running at http://localhost%s", addr)
 	log.Printf("Serving static files from %s", webDir)
-	log.Printf("Word list available at http://localhost%s/words", HOST)
-	log.Fatal(http.ListenAndServe(HOST, nil))
+	log.Printf("Word list available at http://localhost%s/words", addr)
+	log.Fatal(http.ListenAndServe(addr, nil))
 }
 
 func handleWebSocket(w http.ResponseWriter, r *http.Request) {
