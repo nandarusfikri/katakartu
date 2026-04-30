@@ -12,6 +12,7 @@ let selectedSuffixCards = [];
 let selectedFromHandId = null;
 let handCardMap = {};
 let selectedDuration = 180;
+let previousScores = {};
 
 function selectDuration(seconds) {
     selectedDuration = seconds;
@@ -85,6 +86,7 @@ function handleMessage(msg) {
             break;
 
         case 'game_state':
+            checkScore50(msg.payload);
             gameState = msg.payload;
             if (gameState.status === 'playing') {
                 updateGame();
@@ -574,6 +576,17 @@ function playDrawCardSound() {
     }
 }
 
+function playScore50Sound() {
+    const sound = document.getElementById('score-50-sound');
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(e => {
+            const s = new Audio('sounds/hidup-jokowi.mp3');
+            s.play().catch(e2 => console.error('Both methods failed:', e2));
+        });
+    }
+}
+
 function showAnswerPopup(text) {
     const popup = document.getElementById('answer-popup');
     const popupText = document.getElementById('answer-popup-text');
@@ -584,4 +597,20 @@ function showAnswerPopup(text) {
 function hideAnswerPopup() {
     const popup = document.getElementById('answer-popup');
     popup.classList.add('hidden');
+}
+
+function checkScore50(newState) {
+    if (!newState || !newState.players) return;
+    
+    newState.players.forEach(player => {
+        const prevScore = previousScores[player.id] || 0;
+        if (prevScore < 50 && player.score >= 50) {
+            setTimeout(() => playScore50Sound(), 500);
+        }
+    });
+    
+    previousScores = {};
+    newState.players.forEach(player => {
+        previousScores[player.id] = player.score;
+    });
 }
