@@ -5,12 +5,13 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"path/filepath"
 	"time"
 
-	"github.com/gorilla/websocket"
 	gameHandler "Game_KataBaku/internal/handler"
 	"Game_KataBaku/internal/hub"
 	"Game_KataBaku/internal/types"
+	"github.com/gorilla/websocket"
 )
 
 const (
@@ -29,7 +30,8 @@ var gameHub *hub.Hub
 var handler *gameHandler.Handler
 
 func main() {
-	webDir := "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/web"
+	baseDir := getBaseDir()
+	webDir := filepath.Join(baseDir, "web")
 
 	gameHub = hub.NewHub()
 	handler = gameHandler.NewHandler(gameHub)
@@ -79,14 +81,24 @@ func handleClient(conn *websocket.Conn) {
 
 func handleWords(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "text/plain; charset=utf-8")
-	
-	data, err := os.ReadFile("/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/kata.txt")
+
+	baseDir := getBaseDir()
+	dataFile := filepath.Join(baseDir, "data", "kata.txt")
+	data, err := os.ReadFile(dataFile)
 	if err != nil {
 		http.Error(w, "File not found", 404)
 		return
 	}
-	
+
 	w.Write(data)
+}
+
+func getBaseDir() string {
+	cwd, err := os.Getwd()
+	if err != nil {
+		return "."
+	}
+	return cwd
 }
 
 func generateClientID() string {

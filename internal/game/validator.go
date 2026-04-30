@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 	"sync"
 	"time"
@@ -18,10 +19,15 @@ type Validator struct {
 }
 
 func NewValidator(filename string) (*Validator, error) {
+	baseDir, err := os.Getwd()
+	if err != nil {
+		baseDir = "."
+	}
+	dataDir := filepath.Join(baseDir, "data")
 	v := &Validator{
 		dictionary:         make(map[string]bool),
-		dictionaryPath:     "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/wordlist.txt",
-		dictionaryPathList: "/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/list_1.0.0.txt",
+		dictionaryPath:     filepath.Join(dataDir, "wordlist.txt"),
+		dictionaryPathList: filepath.Join(dataDir, "list_1.0.0.txt"),
 	}
 	return v, nil
 }

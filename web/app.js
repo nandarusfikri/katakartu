@@ -268,6 +268,7 @@ function submitPlay() {
 }
 
 function drawCard() {
+    playDrawCardSound();
     send({ type: 'draw_card', payload: {} });
 }
 
@@ -557,6 +558,17 @@ function playCorrectSound() {
         sound.currentTime = 0;
         sound.play().catch(e => {
             const s = new Audio('sounds/correct.mp3');
+            s.play().catch(e2 => console.error('Both methods failed:', e2));
+        });
+    }
+}
+
+function playDrawCardSound() {
+    const sound = document.getElementById('draw-card-sound');
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(e => {
+            const s = new Audio('sounds/jokowi-saya-akan-lawan.mp3');
             s.play().catch(e2 => console.error('Both methods failed:', e2));
         });
     }

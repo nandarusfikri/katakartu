@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"math/rand"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 )
@@ -46,7 +47,12 @@ func (d *Deck) Remaining() int {
 }
 
 func loadDeckFromFile() []string {
-	file, err := os.Open("/Users/nandarusfikri/Documents/NandaRusfikri/Labs/Game KataBaku/data/deck.txt")
+	baseDir, err := os.Getwd()
+	if err != nil {
+		baseDir = "."
+	}
+	deckPath := filepath.Join(baseDir, "data", "deck.txt")
+	file, err := os.Open(deckPath)
 	if err != nil {
 		return generateFallbackSyllables()
 	}
