@@ -134,20 +134,38 @@ func (h *Hub) GetClient(conn *websocket.Conn) *types.Client {
 }
 
 func (h *Hub) BroadcastToRoom(roomCode string, msg types.WsMessage) {
-	h.mu.RLock()
+	h.mu.Lock()
 	room := h.rooms[roomCode]
-	h.mu.RUnlock()
-
 	if room == nil {
+		h.mu.Unlock()
 		return
 	}
 
+	var failedConns []*websocket.Conn
 	for conn := range room.Clients {
 		err := conn.WriteJSON(msg)
 		if err != nil {
-			conn.Close()
+			failedConns = append(failedConns, conn)
 		}
 	}
+
+	for _, conn := range failedConns {
+		conn.Close()
+		delete(room.Clients, conn)
+		if client, exists := h.clients[conn]; exists {
+			delete(h.clients, conn)
+			if g, ok := h.games[roomCode]; ok {
+				g.RemovePlayer(client.ID)
+			}
+		}
+	}
+
+	if len(room.Clients) == 0 {
+		delete(h.rooms, roomCode)
+		delete(h.games, roomCode)
+	}
+
+	h.mu.Unlock()
 }
 
 func (h *Hub) SendToClient(conn *websocket.Conn, msg types.WsMessage) {

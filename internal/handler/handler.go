@@ -319,9 +319,7 @@ func (h *Handler) broadcastVoteRequest(roomCode string, vote *game.VoteSession) 
 		},
 	}
 
-	for conn := range room.Clients {
-		conn.WriteJSON(msg)
-	}
+	h.hub.BroadcastToRoom(roomCode, msg)
 }
 
 func (h *Handler) broadcastVoteProgress(roomCode string, vote *game.VoteSession) {
@@ -347,17 +345,10 @@ func (h *Handler) broadcastVoteProgress(roomCode string, vote *game.VoteSession)
 		},
 	}
 
-	for conn := range room.Clients {
-		conn.WriteJSON(msg)
-	}
+	h.hub.BroadcastToRoom(roomCode, msg)
 }
 
 func (h *Handler) broadcastVoteResult(roomCode string, vote *game.VoteSession, success bool) {
-	room := h.hub.GetRoom(roomCode)
-	if room == nil {
-		return
-	}
-
 	message := "Ganti main card DITOLAK"
 	if success {
 		message = "Ganti main card DISETUJUI"
@@ -374,9 +365,7 @@ func (h *Handler) broadcastVoteResult(roomCode string, vote *game.VoteSession, s
 		},
 	}
 
-	for conn := range room.Clients {
-		conn.WriteJSON(msg)
-	}
+	h.hub.BroadcastToRoom(roomCode, msg)
 }
 
 func (h *Handler) sendError(conn *websocket.Conn, message string) {
@@ -429,9 +418,7 @@ func (h *Handler) broadcastTimer(roomCode string) {
 		},
 	}
 
-	for conn := range room.Clients {
-		conn.WriteJSON(msg)
-	}
+	h.hub.BroadcastToRoom(roomCode, msg)
 }
 
 func (h *Handler) broadcastRoomState(roomCode string) {
@@ -442,26 +429,19 @@ func (h *Handler) broadcastRoomState(roomCode string) {
 
 	players := getPlayersFromRoom(room)
 
-	for conn := range room.Clients {
-		conn.WriteJSON(types.WsMessage{
-			Type: "room_state",
-			Payload: types.RoomState{
-				RoomCode: roomCode,
-				Status:   room.Status,
-				Players:  players,
-			},
-		})
-	}
+	h.hub.BroadcastToRoom(roomCode, types.WsMessage{
+		Type: "room_state",
+		Payload: types.RoomState{
+			RoomCode: roomCode,
+			Status:   room.Status,
+			Players:  players,
+		},
+	})
 }
 
 func (h *Handler) broadcastGameState(roomCode string) {
 	game := h.hub.GetGame(roomCode)
 	if game == nil {
-		return
-	}
-
-	room := h.hub.GetRoom(roomCode)
-	if room == nil {
 		return
 	}
 
@@ -472,15 +452,12 @@ func (h *Handler) broadcastGameState(roomCode string) {
 		Payload: state,
 	}
 
-	for conn := range room.Clients {
-		conn.WriteJSON(msg)
-	}
+	h.hub.BroadcastToRoom(roomCode, msg)
 }
 
 func (h *Handler) broadcastPlayResult(roomCode string, playerID string, result *game.PlayResult) {
-	room := h.hub.GetRoom(roomCode)
 	game := h.hub.GetGame(roomCode)
-	if room == nil || game == nil {
+	if game == nil {
 		return
 	}
 
@@ -513,15 +490,12 @@ func (h *Handler) broadcastPlayResult(roomCode string, playerID string, result *
 		},
 	}
 
-	for conn := range room.Clients {
-		conn.WriteJSON(msg)
-	}
+	h.hub.BroadcastToRoom(roomCode, msg)
 }
 
 func (h *Handler) broadcastGameOver(roomCode string, winnerID string) {
-	room := h.hub.GetRoom(roomCode)
 	game := h.hub.GetGame(roomCode)
-	if room == nil || game == nil {
+	if game == nil {
 		return
 	}
 
@@ -548,9 +522,7 @@ func (h *Handler) broadcastGameOver(roomCode string, winnerID string) {
 		},
 	}
 
-	for conn := range room.Clients {
-		conn.WriteJSON(msg)
-	}
+	h.hub.BroadcastToRoom(roomCode, msg)
 }
 
 func getPlayersFromRoom(room *types.Room) []types.Player {

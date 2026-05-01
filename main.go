@@ -77,6 +77,9 @@ func handleClient(conn *websocket.Conn) {
 		var msg types.WsMessage
 		err := conn.ReadJSON(&msg)
 		if err != nil {
+			if !websocket.IsUnexpectedCloseError(err, websocket.CloseNormalClosure, websocket.CloseGoingAway) {
+				break
+			}
 			log.Printf("Read error: %v", err)
 			break
 		}
