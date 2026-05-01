@@ -6,9 +6,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gorilla/websocket"
 	"Game_KataBaku/internal/game"
 	"Game_KataBaku/internal/types"
+	"github.com/gorilla/websocket"
 )
 
 type Hub struct {
@@ -156,7 +156,7 @@ func (h *Hub) SendToClient(conn *websocket.Conn, msg types.WsMessage) {
 
 func generateRoomCode() string {
 	rand.Seed(time.Now().UnixNano())
-	const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"
+	const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ"
 	code := make([]byte, 4)
 	for i := range code {
 		code[i] = chars[rand.Intn(len(chars))]

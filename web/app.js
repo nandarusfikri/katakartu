@@ -89,8 +89,7 @@ function handleMessage(msg) {
             checkScore50(msg.payload);
             gameState = msg.payload;
             if (gameState.status === 'playing') {
-                updateGame();
-                updateLeaderboard();
+                refreshGameState();
             }
             break;
 
@@ -383,6 +382,13 @@ function updateGame() {
     renderHand();
     updateLeaderboard();
     startTimerDisplay();
+}
+
+function refreshGameState() {
+    showScreen('game');
+    updatePreview();
+    renderHand();
+    updateLeaderboard();
 }
 
 function startTimerDisplay() {
