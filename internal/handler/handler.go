@@ -188,12 +188,11 @@ func (h *Handler) handlePlayCards(conn *websocket.Conn, payload interface{}) {
 
 	result := game.PlayCards(client.ID, req.PrefixCards, req.SuffixCards)
 
+	h.broadcastPlayResult(client.RoomCode, client.ID, result)
+
 	if !result.Valid {
-		h.sendError(conn, result.Message)
 		return
 	}
-
-	h.broadcastPlayResult(client.RoomCode, client.ID, result)
 
 	winnerID, isWinner := game.CheckWinner()
 	if isWinner {
@@ -494,6 +493,7 @@ func (h *Handler) broadcastPlayResult(roomCode string, playerID string, result *
 	}
 
 	type playResultPayload struct {
+		PlayerID    string `json:"playerId"`
 		Valid       bool   `json:"valid"`
 		PlayerName  string `json:"playerName"`
 		Word        string `json:"word,omitempty"`
@@ -504,6 +504,7 @@ func (h *Handler) broadcastPlayResult(roomCode string, playerID string, result *
 	msg := types.WsMessage{
 		Type: "play_result",
 		Payload: playResultPayload{
+			PlayerID:    playerID,
 			Valid:       result.Valid,
 			PlayerName:  playerName,
 			Word:        result.Word,

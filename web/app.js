@@ -509,35 +509,41 @@ function setupClickZones() {
 }
 
 function handlePlayResult(payload) {
-    canPlay = false;
-    const messageEl = document.getElementById('play-message');
-
-    messageEl.classList.remove('hidden', 'success', 'error');
+    console.log('handlePlayResult called:', payload);
+    const isMyPlay = payload.playerId === myClientId;
 
     if (payload.valid) {
-        playCorrectSound();
-        showAnswerPopup(`${payload.playerName} BENAR! Kata: ${payload.word}`);
+        if (isMyPlay) {
+            canPlay = false;
+            playCorrectSound();
+            document.getElementById('main-card').textContent = payload.newMainCard;
+            document.getElementById('main-card-display').textContent = payload.newMainCard;
+            updateLeaderboard();
 
-        document.getElementById('main-card').textContent = payload.newMainCard;
-        document.getElementById('main-card-display').textContent = payload.newMainCard;
+            setTimeout(() => {
+                canPlay = true;
+                selectedPrefixCards = [];
+                selectedSuffixCards = [];
+                selectedFromHandId = null;
+                handCardMap = {};
+                updatePreview();
+                renderHand();
+            }, 3000);
+        }
+        showAnswerPopup(`${payload.playerName} BENAR! Kata: ${payload.word}`, 'success');
+        setTimeout(() => {
+            hideAnswerPopup();
+        }, 3000);
     } else {
-        messageEl.classList.add('error');
-        messageEl.textContent = `SALAH! ${payload.message}`;
+        if (isMyPlay) {
+            canPlay = true;
+            showAnswerPopup(`SALAH! ${payload.message}`, 'error');
+
+            setTimeout(() => {
+                hideAnswerPopup();
+            }, 3000);
+        }
     }
-
-    updateLeaderboard();
-
-    setTimeout(() => {
-        canPlay = true;
-        selectedPrefixCards = [];
-        selectedSuffixCards = [];
-        selectedFromHandId = null;
-        handCardMap = {};
-        messageEl.classList.add('hidden');
-        hideAnswerPopup();
-        updatePreview();
-        renderHand();
-    }, 3000);
 }
 
 function disconnect() {
@@ -587,15 +593,26 @@ function playScore50Sound() {
     }
 }
 
-function showAnswerPopup(text) {
+function showAnswerPopup(text, type = 'success') {
+    console.log('showAnswerPopup called:', text, type);
     const popup = document.getElementById('answer-popup');
     const popupText = document.getElementById('answer-popup-text');
+    if (!popup || !popupText) {
+        console.error('Popup elements not found! popup:', popup, 'popupText:', popupText);
+        return;
+    }
     popupText.textContent = text;
+    popup.className = 'answer-popup ' + type;
     popup.classList.remove('hidden');
+    console.log('Popup element:', popup.className, popup.classList.contains('hidden'));
 }
 
 function hideAnswerPopup() {
     const popup = document.getElementById('answer-popup');
+    if (!popup) {
+        console.error('Popup element not found!');
+        return;
+    }
     popup.classList.add('hidden');
 }
 

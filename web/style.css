@@ -511,38 +511,6 @@ input[type="text"]::placeholder {
     font-weight: 700;
 }
 
-.play-message {
-    position: relative;
-    margin-top: 12px;
-    padding: 8px 16px;
-    border-radius: 8px;
-    font-size: 13px;
-    font-weight: 600;
-    text-align: center;
-    animation: slideUp 0.3s ease;
-}
-
-.play-message.hidden {
-    display: none;
-}
-
-.play-message.success {
-    background: rgba(34, 197, 94, 0.2);
-    border: 1px solid var(--success);
-    color: var(--success);
-}
-
-.play-message.error {
-    background: rgba(239, 68, 68, 0.2);
-    border: 1px solid var(--error);
-    color: var(--error);
-}
-
-@keyframes slideUp {
-    from { transform: translateY(10px); opacity: 0; }
-    to { transform: translateY(0); opacity: 1; }
-}
-
 @keyframes shake {
     0%, 100% { transform: translateX(0); }
     25% { transform: translateX(-5px); }
@@ -674,9 +642,9 @@ input[type="text"]::placeholder {
 
 .answer-popup {
     position: fixed;
-    top: 50%;
+    top: 80px;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translateX(-50%);
     z-index: 200;
     animation: popIn 0.3s ease;
 }
@@ -688,21 +656,29 @@ input[type="text"]::placeholder {
 .answer-popup-content {
     background: var(--card-bg);
     border: 2px solid var(--success);
-    border-radius: 16px;
-    padding: 20px 32px;
+    border-radius: 12px;
+    padding: 12px 24px;
     text-align: center;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
 }
 
+.answer-popup.error .answer-popup-content {
+    border-color: var(--error);
+}
+
 .answer-popup-text {
     color: var(--success);
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
 }
 
+.answer-popup.error .answer-popup-text {
+    color: var(--error);
+}
+
 @keyframes popIn {
-    from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
-    to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+    to { transform: translateX(-50%) translateY(0); opacity: 1; }
 }
 
 .toast.hidden {
