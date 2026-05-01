@@ -83,12 +83,12 @@ func (g *Game) Start() error {
 		}
 	}
 
-	mainCard := GenerateMainCard()
-	g.MainCard = mainCard.Syllable
-
 	for _, p := range g.Players {
+		p.Score = 0
 		p.Cards = generatePlayerCards(10)
 	}
+
+	g.MainCard = GenerateMainCard().Syllable
 
 	g.Deck = NewDeck()
 	g.Status = "playing"
