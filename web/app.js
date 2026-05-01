@@ -543,6 +543,7 @@ function handlePlayResult(payload) {
     } else {
         if (isMyPlay) {
             canPlay = true;
+            playWrongSound();
             showAnswerPopup(`SALAH! ${payload.message}`, 'error');
 
             setTimeout(() => {
@@ -594,6 +595,17 @@ function playScore50Sound() {
         sound.currentTime = 0;
         sound.play().catch(e => {
             const s = new Audio('sounds/hidup-jokowi.mp3');
+            s.play().catch(e2 => console.error('Both methods failed:', e2));
+        });
+    }
+}
+
+function playWrongSound() {
+    const sound = document.getElementById('wrong-sound');
+    if (sound) {
+        sound.currentTime = 0;
+        sound.play().catch(e => {
+            const s = new Audio('sounds/mac-quack.mp3');
             s.play().catch(e2 => console.error('Both methods failed:', e2));
         });
     }
