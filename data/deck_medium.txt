@@ -1,91 +1,53 @@
-A, A, A, A, A, A
-I, I, I, I, I
-U, U, U, U, U
-E, E, E, E
-O, O, O
+A, A, A, A, A, A, A, A
+I, I, I, I, I, I
+U, U, U, U, U, U
+E, E, E, E, E
+O, O, O, O
 
-MA, MA, MA, MA, MA, MA, MA, MA, MA, MA
-ME, ME, ME, ME, ME, ME, ME, ME
-MI, MI, MI, MI, MI, MI
-MO, MO, MO
-MU, MU, MU, MU
+ME, ME, ME, ME, ME
+DI, DI, DI, DI, DI
+BER, BER, BER, BER
+KE, KE, KE, KE
+PE, PE, PE, PE
+TER, TER, TER
+SE, SE, SE
 
-KA, KA, KA, KA, KA, KA, KA, KA, KA, KA
-KE, KE, KE, KE, KE, KE, KE, KE, KE, KE
-KI, KI, KI, KI, KI, KI
-KO, KO, KO
-KU, KU, KU, KU, KU
-
-BA, BA, BA, BA, BA, BA, BA, BA
-BE, BE, BE, BE, BE, BE
-BI, BI, BI, BI, BI, BI
-BO, BO, BO
-BU, BU, BU, BU, BU
-
-PA, PA, PA, PA, PA, PA, PA, PA
-PE, PE, PE, PE, PE, PE, PE, PE, PE, PE
-PI, PI, PI, PI, PI, PI
-PO, PO, PO
-PU, PU, PU, PU, PU
-
-TA, TA, TA, TA, TA, TA, TA, TA
-TE, TE, TE, TE, TE, TE
-TI, TI, TI, TI, TI, TI
-TO, TO, TO
-TU, TU, TU, TU, TU
-
-SA, SA, SA, SA, SA, SA, SA, SA
-SE, SE, SE, SE, SE, SE, SE, SE, SE, SE
-SI, SI, SI, SI, SI, SI
-SO, SO, SO
-SU, SU, SU, SU, SU
-
-LA, LA, LA, LA, LA, LA, LA, LA
-LE, LE, LE, LE, LE, LE
-LI, LI, LI, LI, LI, LI, LI, LI
-LO, LO, LO
-LU, LU, LU, LU, LU
-
-RA, RA, RA, RA, RA, RA, RA, RA
-RE, RE, RE, RE, RE, RE
-RI, RI, RI, RI, RI, RI, RI, RI
-RO, RO, RO
-RU, RU, RU, RU, RU
-
-NA, NA, NA, NA, NA, NA, NA, NA
-NE, NE, NE, NE, NE
-NI, NI, NI, NI, NI, NI
-NO, NO, NO
-NU, NU, NU, NU
-
-DA, DA, DA, DA, DA, DA
-DE, DE, DE, DE, DE
-DI, DI, DI, DI, DI, DI, DI, DI, DI, DI
-DO, DO, DO
-DU, DU, DU, DU
-
-GA, GA, GA, GA, GA, GA
-GE, GE, GE, GE, GE
-GI, GI, GI, GI, GI
-GO, GO, GO
-GU, GU, GU, GU
-
-JA, JA, JA, JA, JA
-JE, JE, JE
-JI, JI, JI
-JO, JO
-JU, JU, JU, JU
-
+MA, MA, MA, MA, MA
+KA, KA, KA, KA, KA
+LA, LA, LA, LA, LA
+SA, SA, SA, SA, SA
+NA, NA, NA, NA, NA
+TA, TA, TA, TA, TA
+RA, RA, RA, RA, RA
+DA, DA, DA, DA
+BA, BA, BA, BA
+GA, GA, GA, GA
+JA, JA, JA, JA
+PA, PA, PA, PA
 WA, WA, WA, WA
-YA, YA, YA
+HA, HA, HA, HA
+LI, LI, LI, LI
+RI, RI, RI, RI
+TI, TI, TI, TI
+NI, NI, NI, NI
+GI, GI, GI, GI
+KI, KI, KI, KI
+LU, LU, LU, LU
+RU, RU, RU, RU
+TU, TU, TU, TU
+MU, MU, MU, MU
+NU, NU, NU, NU
+LE, LE, LE, LE
+RE, RE, RE, RE
+TE, TE, TE, TE
+GE, GE, GE, GE
+LO, LO, LO
+RO, RO, RO
+TO, TO, TO
+NO, NO, NO
 
-AN, AN, AN, AN, AN, AN, AN, AN
-KAN, KAN, KAN, KAN, KAN, KAN
-NYA, NYA, NYA, NYA, NYA, NYA, NYA, NYA
-
-BER, BER, BER, BER, BER, BER
-PER, PER, PER, PER, PER, PER
-TER, TER, TER, TER, TER, TER
-
-MEN, MEN, MEN, MEN
-PEM, PEM, PEM, PEM
+KAN, KAN, KAN, KAN, KAN
+NYA, NYA, NYA, NYA, NYA
+AN, AN, AN, AN
+IN, IN, IN, IN
+NG, NG, NG
