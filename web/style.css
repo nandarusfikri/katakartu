@@ -5,18 +5,18 @@
 }
 
 :root {
-    --primary: #6366f1;
-    --primary-dark: #4f46e5;
-    --secondary: #8b5cf6;
-    --success: #22c55e;
-    --error: #ef4444;
-    --bg: #0f172a;
-    --card-bg: #1e293b;
-    --card-border: #334155;
-    --text: #f8fafc;
-    --text-muted: #94a3b8;
-    --prefix-color: #3b82f6;
-    --suffix-color: #f59e0b;
+    --primary: #2196F3;
+    --primary-dark: #1976D2;
+    --secondary: #FF9800;
+    --success: #2196F3;
+    --error: #D32F2F;
+    --bg: #F9F7F7;
+    --card-bg: #FFFFFF;
+    --card-border: #E0E0E0;
+    --text: #000000;
+    --text-muted: #000000;
+    --prefix-color: #000000;
+    --suffix-color: #000000;
 }
 
 body {
@@ -48,16 +48,30 @@ header {
 header h1 {
     font-size: 28px;
     font-weight: 700;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: #000000;
 }
 
 .tagline {
-    color: var(--text-muted);
+    color: #000000;
     font-size: 14px;
     margin-top: 4px;
+}
+
+h3 {
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    color: #000000;
+    margin-bottom: 6px;
+}
+
+input[type="text"]::placeholder {
+    color: #424242;
 }
 
 main {
@@ -143,7 +157,7 @@ input[type="text"]::placeholder {
     justify-content: center;
     padding: 14px 24px;
     font-size: 16px;
-    font-weight: 600;
+    font-weight: 700;
     border: none;
     border-radius: 12px;
     cursor: pointer;
@@ -158,39 +172,30 @@ input[type="text"]::placeholder {
 
 .btn-primary {
     background: var(--primary);
-    color: white;
-}
-
-.btn-primary:hover:not(:disabled) {
-    background: var(--primary-dark);
+    color: #FFFFFF;
+    font-weight: 700;
 }
 
 .btn-secondary {
-    background: var(--card-border);
-    color: var(--text);
-}
-
-.btn-secondary:hover:not(:disabled) {
-    background: #475569;
+    background: #BDBDBD;
+    color: #000000;
+    font-weight: 700;
 }
 
 .btn-warning {
-    background: #f59e0b;
-    color: #000;
-}
-
-.btn-warning:hover:not(:disabled) {
-    background: #d97706;
+    background: #FFC107;
+    color: #000000;
+    font-weight: 700;
 }
 
 .btn-text {
     background: transparent;
-    color: var(--text-muted);
+    color: #000000;
     padding: 12px;
 }
 
 .btn-text:hover {
-    color: var(--text);
+    color: #000000;
 }
 
 .btn-small {
@@ -272,6 +277,7 @@ input[type="text"]::placeholder {
     padding: 2px 8px;
     border-radius: 4px;
     font-size: 12px;
+    color: #000000;
 }
 
 .game-area {
@@ -293,7 +299,7 @@ input[type="text"]::placeholder {
 }
 
 .timer-label {
-    color: var(--text-muted);
+    color: #000000;
     font-size: 12px;
 }
 
@@ -320,7 +326,15 @@ input[type="text"]::placeholder {
     padding: 8px 12px;
     background: var(--card-bg);
     border-radius: 8px;
-    font-size: 11px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #000000;
+}
+
+.leaderboard-entry {
+    color: #000000;
+    white-space: nowrap;
+    font-weight: 500;
 }
 
 .trophy-icon {
@@ -334,23 +348,19 @@ input[type="text"]::placeholder {
     align-items: center;
 }
 
-.leaderboard-entry {
-    color: var(--text-muted);
-    white-space: nowrap;
-}
-
 .leaderboard-entry.rank-1 {
-    color: #fbbf24;
+    color: #000000;
     font-weight: 700;
+    text-decoration: underline;
 }
 
 .leaderboard-entry.rank-2 {
-    color: #94a3b8;
+    color: #000000;
     font-weight: 600;
 }
 
 .leaderboard-entry.rank-3 {
-    color: #cd7c2f;
+    color: #000000;
     font-weight: 600;
 }
 
@@ -367,21 +377,21 @@ input[type="text"]::placeholder {
 }
 
 .preview-prefix {
-    color: var(--prefix-color);
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
     min-width: 20px;
 }
 
 .preview-main {
-    color: var(--primary);
+    color: #000000;
     font-size: 20px;
     font-weight: 700;
     min-width: 20px;
 }
 
 .preview-suffix {
-    color: var(--suffix-color);
+    color: #000000;
     font-size: 18px;
     font-weight: 600;
     min-width: 20px;
@@ -391,7 +401,7 @@ input[type="text"]::placeholder {
     width: 100%;
     font-size: 24px;
     font-weight: 700;
-    color: var(--text);
+    color: #000000;
     margin-top: 8px;
     border-top: 1px solid var(--card-border);
     padding-top: 8px;
@@ -420,7 +430,7 @@ input[type="text"]::placeholder {
 
 .drop-zone.drag-over {
     border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(33, 150, 243, 0.1);
     transform: scale(1.02);
 }
 
@@ -439,17 +449,17 @@ input[type="text"]::placeholder {
 
 .prefix-zone.drag-over {
     border-color: var(--prefix-color);
-    background: rgba(59, 130, 246, 0.15);
+    background: rgba(33, 150, 243, 0.15);
 }
 
 .suffix-zone.drag-over {
     border-color: var(--suffix-color);
-    background: rgba(245, 158, 11, 0.15);
+    background: rgba(255, 193, 7, 0.15);
 }
 
 .drop-zone .drop-label {
     font-size: 14px;
-    color: var(--text-muted);
+    color: #000000;
     font-weight: 600;
     position: absolute;
 }
@@ -476,15 +486,15 @@ input[type="text"]::placeholder {
 }
 
 .prefix-zone .selected-card {
-    background: rgba(59, 130, 246, 0.2);
-    color: var(--prefix-color);
-    border: 1px solid var(--prefix-color);
+    background: rgba(33, 150, 243, 0.2);
+    color: #000000;
+    border: 1px solid #2196F3;
 }
 
 .suffix-zone .selected-card {
-    background: rgba(245, 158, 11, 0.2);
-    color: var(--suffix-color);
-    border: 1px solid var(--suffix-color);
+    background: rgba(255, 152, 0, 0.2);
+    color: #000000;
+    border: 1px solid #FF9800;
 }
 
 .main-card-display {
@@ -492,9 +502,16 @@ input[type="text"]::placeholder {
     position: relative;
 }
 
-.main-card-display .label {
+.label {
     font-size: 12px;
-    color: var(--text-muted);
+    color: #000000;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.word-preview .label {
+    font-size: 12px;
+    color: #000000;
     display: block;
     margin-bottom: 4px;
 }
@@ -505,10 +522,11 @@ input[type="text"]::placeholder {
     justify-content: center;
     width: 100px;
     height: 70px;
-    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    background: #2196F3;
     border-radius: 12px;
     font-size: 24px;
     font-weight: 700;
+    color: #FFFFFF;
 }
 
 @keyframes shake {
@@ -525,7 +543,7 @@ input[type="text"]::placeholder {
 
 .hand-area .label {
     font-size: 12px;
-    color: var(--text-muted);
+    color: #000000;
     margin-bottom: 12px;
     display: block;
     text-align: center;
@@ -546,7 +564,7 @@ input[type="text"]::placeholder {
 
 .hand-cards.drag-over {
     border-color: var(--primary);
-    background: rgba(99, 102, 241, 0.05);
+    background: rgba(33, 150, 243, 0.05);
 }
 
 .hand-card {
@@ -556,6 +574,7 @@ input[type="text"]::placeholder {
     border-radius: 8px;
     font-size: 16px;
     font-weight: 600;
+    color: #000000;
     cursor: pointer;
     transition: all 0.2s;
     user-select: none;
@@ -574,7 +593,7 @@ input[type="text"]::placeholder {
 
 .hand-card.selected-from-hand {
     border-color: var(--success);
-    background: rgba(34, 197, 94, 0.2);
+    background: rgba(33, 150, 243, 0.2);
     box-shadow: 0 0 0 3px var(--success);
 }
 
@@ -587,8 +606,8 @@ input[type="text"]::placeholder {
 .actions .btn {
     flex: 1;
     min-width: 60px;
-    padding: 8px 4px;
-    font-size: 12px;
+    padding: 10px 8px;
+    font-size: 14px;
 }
 
 .duration-options {
@@ -599,12 +618,12 @@ input[type="text"]::placeholder {
 
 .duration-btn {
     flex: 1;
-    padding: 8px 6px;
+    padding: 10px 8px;
     background: var(--bg);
     border: 2px solid var(--card-border);
     border-radius: 8px;
-    color: var(--text-muted);
-    font-size: 12px;
+    color: #000000;
+    font-size: 14px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.2s;
@@ -613,13 +632,13 @@ input[type="text"]::placeholder {
 }
 
 .duration-btn:hover {
-    border-color: var(--text-muted);
+    border-color: #000000;
 }
 
 .duration-btn.selected {
     border-color: var(--primary);
     color: var(--primary);
-    background: rgba(99, 102, 241, 0.1);
+    background: rgba(33, 150, 243, 0.1);
 }
 
 .duration-btn:active {
@@ -667,13 +686,13 @@ input[type="text"]::placeholder {
 }
 
 .answer-popup-text {
-    color: var(--success);
+    color: #000000;
     font-size: 14px;
     font-weight: 700;
 }
 
 .answer-popup.error .answer-popup-text {
-    color: var(--error);
+    color: #000000;
 }
 
 @keyframes popIn {
@@ -731,7 +750,7 @@ input[type="text"]::placeholder {
     right: 16px;
     font-size: 28px;
     cursor: pointer;
-    color: var(--text-muted);
+    color: #000000;
 }
 
 .modal-content h2 {
@@ -784,7 +803,7 @@ input[type="text"]::placeholder {
     gap: 8px;
     font-size: 14px;
     font-weight: 600;
-    color: var(--suffix-color);
+    color: #000000;
     margin-bottom: 10px;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--card-border);
@@ -808,21 +827,23 @@ input[type="text"]::placeholder {
     background: var(--bg);
     border-radius: 8px;
     font-size: 13px;
+    color: #000000;
+    font-weight: 500;
 }
 
 .leaderboard-item.top-1 {
-    background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(234, 179, 8, 0.1));
-    border: 1px solid var(--suffix-color);
+    background: rgba(245, 124, 0, 0.15);
+    border: 1px solid #F57C00;
 }
 
 .leaderboard-item.top-2 {
-    background: rgba(148, 163, 184, 0.1);
-    border: 1px solid #94a3b8;
+    background: rgba(97, 97, 97, 0.1);
+    border: 1px solid #616161;
 }
 
 .leaderboard-item.top-3 {
-    background: rgba(185, 28, 28, 0.1);
-    border: 1px solid #b45309;
+    background: rgba(198, 40, 40, 0.1);
+    border: 1px solid #C62828;
 }
 
 .leaderboard-rank {
@@ -839,17 +860,17 @@ input[type="text"]::placeholder {
 }
 
 .top-1 .leaderboard-rank {
-    background: var(--suffix-color);
+    background: #F57C00;
     color: #000;
 }
 
 .top-2 .leaderboard-rank {
-    background: #64748b;
+    background: #616161;
     color: #fff;
 }
 
 .top-3 .leaderboard-rank {
-    background: #b45309;
+    background: #C62828;
     color: #fff;
 }
 
@@ -857,15 +878,16 @@ input[type="text"]::placeholder {
     flex: 1;
     margin-left: 10px;
     font-weight: 500;
+    color: #000000;
 }
 
 .leaderboard-score {
     font-weight: 700;
-    color: var(--success);
+    color: #1565C0;
 }
 
 .leaderboard-item.top-1 .leaderboard-score {
-    color: var(--suffix-color);
+    color: #BF360C;
 }
 
 .vote-popup {
@@ -938,11 +960,11 @@ input[type="text"]::placeholder {
 
 .btn-approve {
     background: var(--success);
-    color: #000;
+    color: #fff;
 }
 
 .btn-approve:hover {
-    background: #16a34a;
+    background: #1565C0;
 }
 
 .btn-reject {
