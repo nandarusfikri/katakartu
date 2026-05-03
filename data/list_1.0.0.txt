@@ -1,6 +1,3 @@
-a
-à
-aa
 aabi
 aabinomin
 aaji
@@ -8,7 +5,6 @@ aal
 aan
 aau
 aaui
-ab
 aba
 abaaka
 abab
@@ -232,7 +228,6 @@ abuya
 abuza
 abyad
 abyor
-ac
 acabis
 acah
 acak
@@ -279,7 +274,6 @@ acum
 acuman
 acung
 acungan
-ad
 ada
 adab
 adabiah
@@ -603,7 +597,6 @@ aerotropolis
 aesi
 aestetika
 aetiologi
-af
 afa
 afafar
 afaftema
@@ -680,7 +673,6 @@ afui
 afwah
 afwan
 afyauf
-ag
 aga
 agad
 agadi
@@ -864,7 +856,6 @@ agustinianisme
 agustus
 agustusan
 agut
-ah
 aha
 ahad
 ahadiat
@@ -921,7 +912,6 @@ ahuneyo
 ahuni
 ahutu
 ahwal
-ai
 aib
 aibinan
 aibohfobia
@@ -1018,7 +1008,6 @@ ajur
 ajus
 ajuster
 ajuvan
-ak
 ak.
 aka
 akabri
@@ -1339,7 +1328,6 @@ akut
 akuwu
 akwai
 akwal
-al
 ala
 alaan
 alab
@@ -1804,7 +1792,6 @@ alwasi
 alwasia
 alzheimer
 alzi
-am
 ama
 amabakdu
 amaf
@@ -3117,7 +3104,6 @@ aora
 aorta
 aota
 a.p.
-ap
 apa
 apaan
 apabila
@@ -3580,7 +3566,6 @@ arwer
 arya
 aryaduta
 arzak
-as
 a.s.
 asa
 asabat
@@ -3979,7 +3964,6 @@ atung
 atur
 aturan
 atus
-au
 aubade
 audial
 audiens
@@ -4263,10 +4247,7 @@ azotemia
 azuki
 azulena
 azurit
-b
-b3
 b.a.
-ba
 baal
 baang
 baasuh
@@ -5412,13 +5393,11 @@ bazari
 bazis
 baznas
 bazoka
-bb
 bbg
 bbk
 bblr
 bbm
 bcc
-be
 bea
 beachhead
 beasiswa
@@ -9916,7 +9895,6 @@ bewok
 bezel
 bezit
 bfo
-bh
 bhagawadgita
 bharada
 bharaka
@@ -9930,7 +9908,6 @@ bhayangkari
 bhineka
 bhmn
 bhutan
-bi
 bia
 biadab
 biadat
@@ -10577,7 +10554,6 @@ bmn
 bnn
 bnpb
 bnpt
-bo
 boa
 boano
 bob
@@ -10911,7 +10887,6 @@ boyong
 boyongan
 boyut
 bozah
-bp
 bp3
 bp3k
 bp4
@@ -11078,10 +11053,8 @@ bruto
 brutu
 b.sc.
 bsnp
-bt
 btk
 btp
-bu
 buah
 buai
 buaian
@@ -11476,8 +11449,6 @@ buyut
 buyutan
 byarpet
 byur
-c
-ca
 caba
 cabai
 cabak
@@ -11880,9 +11851,7 @@ cawokah
 cawu
 caya
 cbsa
-cc
 ccp
-ce
 cebak
 cebakan
 ceban
@@ -12401,7 +12370,6 @@ ceuki
 cewang
 cewek
 cewo
-cg
 cgs
 chalet
 chaperon
@@ -12410,7 +12378,6 @@ chili
 china
 chlor
 chop
-ci
 cia
 ciak
 cialat
@@ -12582,7 +12549,6 @@ cium
 ciuman
 ciut
 civri
-cl
 claret
 clbk
 clear
@@ -12590,7 +12556,6 @@ clearance
 clemer
 cling
 clurit
-cm
 coak
 coang
 cob
@@ -12742,7 +12707,6 @@ criping
 crooner
 cst
 cth
-cu
 cua
 cuaca
 cuacaru
@@ -12908,9 +12872,7 @@ cutel
 cuti
 cutlery
 cyclop
-d
 d.a.
-da
 da'ang
 daayah
 dab
@@ -13298,7 +13260,6 @@ dayung
 dayus
 dbd
 ddt
-de
 deaerasi
 deaktivasi
 dealat
@@ -14034,11 +13995,9 @@ dewas
 dewasa
 dewata
 dewi
-dg
 dhalim
 dharma
 dharmasraya
-di
 dia
 diabetes
 diabetesi
@@ -14585,15 +14544,12 @@ diye
 dizi
 dkk.
 dkm
-dl
 dlika
 dll.
 dllajr
-dm
 dmg
 dna
 dng
-do
 doa
 doang
 dobel
@@ -14813,7 +14769,6 @@ doyan
 doyang
 doyo
 doyong
-dp
 dpc
 dpd
 dplk
@@ -15097,13 +15052,11 @@ dwiwarna
 dwiwasana
 d.y.a.m.
 d.y.m.m.
-dz
 dzalim
 dzat
 dzikir
 dzongkha
 dzuhur
-e
 ebam
 eban
 ebek
@@ -15147,7 +15100,6 @@ edukatif
 edukator
 edun
 eeg
-ef
 efa
 efebifobia
 efebofilia
@@ -15192,7 +15144,6 @@ egosentrisme
 egosintonik
 egrang
 egresif
-eh
 ehe
 ehomo
 eidetik
@@ -15555,7 +15506,6 @@ ekuivalen
 ekuivalensi
 ekuivokasi
 ekwivalen
-el
 ela
 elaborasi
 elaboratif
@@ -15690,7 +15640,6 @@ elutriasi
 eluvial
 eluviasi
 eluvium
-em
 email
 emak
 emanasi
@@ -15841,7 +15790,6 @@ emulsi
 emulsifikasi
 emumu
 emut
-en
 enak
 enakan
 enam
@@ -16163,7 +16111,6 @@ eponim
 epos
 epsilon
 epulis
-er
 era
 eradikasi
 eragik
@@ -16245,7 +16192,6 @@ erti
 ertufa
 eru
 erupsi
-es
 esa
 esai
 esais
@@ -16449,8 +16395,6 @@ extralarge
 eyang
 eyd
 eyel
-f
-fa
 faal
 faali
 fabel
@@ -16642,7 +16586,6 @@ favorit
 favoritisme
 faximile
 fayu
-fe
 feb
 febrifobia
 febrin
@@ -16737,9 +16680,7 @@ fetus
 feuilleton
 fez
 ffi
-fh
 fhi
-fi
 fiasko
 fiat
 fib
@@ -16932,7 +16873,6 @@ fitri
 fitur
 fjord
 f.k.
-fk
 fkg
 fkh
 fkip
@@ -17015,7 +16955,6 @@ fluoroskop
 fluoroskopi
 flurona
 fluvial
-fm
 fmipa
 foau
 fobi
@@ -17273,7 +17212,6 @@ fruktosan
 frustasi
 frustrasi
 frustum
-ft
 fuad
 fudeng
 fufu
@@ -17347,8 +17285,6 @@ futurologis
 fuya
 fuyonghai
 fyord
-g
-ga
 gaat
 gaba
 gabah
@@ -17892,7 +17828,6 @@ g.b.p.h.
 g.b.r.a.
 g.b.r.ay.
 g.b.r.m.
-ge
 gebah
 gebal
 gebang
@@ -18833,7 +18768,6 @@ ghaib
 ghana
 ghetto
 ghoib
-gi
 gial
 giam
 gianyar
@@ -19097,7 +19031,6 @@ gmki
 gmni
 gnomon
 gnota
-go
 goa
 goah
 goak
@@ -19292,7 +19225,6 @@ goyobod
 g.p.h.
 gpk
 gpl
-gr
 g.r.a.
 grabadan
 grabag
@@ -19394,12 +19326,10 @@ groto
 grubi
 grup
 gruwung
-gs
 gsb
 gsj
 gtm
 gto
-gu
 gua
 guabiroba
 guakamole
@@ -19626,9 +19556,6 @@ guyur
 guyuran
 gwm
 gz.
-h
-h.
-ha
 habaib
 habajau
 habanera
@@ -19998,8 +19925,6 @@ hayat
 hayati
 hayo
 hazad
-hb
-he
 hear
 heban
 hebat
@@ -20260,10 +20185,8 @@ heuristik
 heuristis
 hewan
 hewani
-hg
 hgb
 hgu
-hi
 hia
 hialin
 hialit
@@ -20706,10 +20629,8 @@ hizib
 hj.
 hki
 hksn
-hl
 hlm.
 hln
-hm
 hoaks
 hobi
 hobiis
@@ -20985,8 +20906,6 @@ huyung
 huzarensla
 hyang
 hymne
-i
-ia
 iaido
 iaidoka
 iain
@@ -21033,7 +20952,6 @@ icip
 icmi
 ictus
 icu
-id
 id.
 ida
 idah
@@ -21105,7 +21023,6 @@ igd
 iglo
 igora
 iguana
-ih
 ihanah
 ihau
 ihdad
@@ -21936,7 +21853,6 @@ inyik
 inzar
 inzet
 inziaj
-io
 iodi
 iodida
 iodimetri
@@ -21954,7 +21870,6 @@ ionosfer
 ionosonde
 iota
 iotasisme
-ip
 ipa
 ipal
 ipar
@@ -22256,7 +22171,6 @@ iwur
 iya
 izah
 izin
-j
 jaat
 jab
 jaba
@@ -22647,7 +22561,6 @@ jazab
 jazam
 jazirah
 jazirat
-je
 jebab
 jebah
 jebai
@@ -23032,7 +22945,6 @@ jetset
 jewer
 jeweran
 jht
-ji
 jiarah
 jiawang
 jib
@@ -23415,8 +23327,6 @@ jutek
 juvenil
 juwita
 juz
-k
-ka
 kaa
 kaabah
 kab
@@ -24759,7 +24669,6 @@ kayupulau
 kazak
 kazakstan
 kazanah
-kb
 kbbi
 kbh
 kbih
@@ -24767,14 +24676,12 @@ kbps
 kbray
 kbri
 kbu
-kc
 kcp
 kcu
 kd.
 kdb
 kdr
 kdrt
-ke
 keabadian
 keabnormalan
 keabsahan
@@ -28066,7 +27973,6 @@ kfer
 kfl
 kfm
 kfr
-kg
 kga
 k.h.
 kha
@@ -28162,7 +28068,6 @@ khusuk
 khusus
 khusyuk
 khutbah
-ki
 kia
 kiah
 kiai
@@ -28501,17 +28406,14 @@ kiwari
 kiwi
 kiyo
 kizib
-kj
 kjökkenmodding
 kjri
-kk
 kkal
 kkgj
 kkl
 kkm
 kkn
 kkp
-kl
 klab
 klabang
 klabet
@@ -28673,7 +28575,6 @@ kluwak
 kluwer
 kluwo
 klw
-km
 kmb
 kmd
 kmp
@@ -28685,7 +28586,6 @@ knkt
 knop
 knot
 k.o.
-ko
 koa
 koagel
 koagregasi
@@ -29764,7 +29664,6 @@ koyam
 koyan
 koyo
 koyok
-kp
 kpa
 kpai
 kpd
@@ -30040,7 +29939,6 @@ ktp
 ktsp
 ktt
 ktu
-ku
 kua
 kuaci
 kuadran
@@ -30581,10 +30479,8 @@ kuyang
 kuyu
 kuyung
 kuyup
-kv
 kva
 k.vet.
-kw
 kwaca
 kwaci
 kwalitas
@@ -30609,11 +30505,8 @@ kwh
 kwintal
 kwitansi
 kwiz
-ky
 kyai
 kyat
-l
-la
 laal
 laas
 lab
@@ -32302,12 +32195,10 @@ liwan
 liwat
 liwet
 liyan
-lk
 lkim
 lkir
 lkm
 lkt
-lo
 loak
 loakan
 lob
@@ -32547,7 +32438,6 @@ loyar
 loyo
 loyong
 lozenge
-lp
 lp2p
 lpdp
 lpg
@@ -32563,11 +32453,9 @@ lpsk
 lptk
 lptq
 lrt
-ls
 lsf
 lsi
 lsm
-lu
 luah
 luak
 luang
@@ -32767,9 +32655,7 @@ luyak
 luyu
 luyut
 lyceum
-m
 m.a.
-ma
 maab
 maaf
 maag
@@ -33958,7 +33844,6 @@ mazkur
 mazmumah
 mazmur
 mazurka
-mb
 mbah
 mbak
 mbakyu
@@ -33975,7 +33860,6 @@ mbr
 mck
 m.div.
 mdpl
-me
 mea
 meah
 meaks
@@ -44182,14 +44066,12 @@ m.farm.
 m.farm.klin.
 m.fil.i.
 mflops
-mg
 m.h.
 m.h.i.
 m.h.kes.
 m.hum.
 m.hut.
 mhz
-mi
 miak
 mialgia
 miana
@@ -44571,7 +44453,6 @@ mitraliur
 mizab
 mizan
 m.k.
-mk
 mkdk
 mkdu
 m.keb.
@@ -44587,11 +44468,9 @@ m.kom.
 m.kor.
 mkp
 mks
-ml
 mli
 mlm
 m.m.
-mm
 m.m.a.
 m.m.kes.
 m.m.par.
@@ -44973,7 +44852,6 @@ m.t.p.
 mtq
 m.tr.
 mts
-mu
 mua
 muadin
 muadzin
@@ -45481,8 +45359,6 @@ muzdalifah
 muzhab
 muzhib
 myanmar
-n
-na
 naam
 naas
 nabab
@@ -46002,7 +45878,6 @@ ngoyos
 ngung
 ngunjal
 ngurak
-ni
 nia
 niaga
 niagawan
@@ -46149,9 +46024,7 @@ njop
 nkk
 nkkbs
 nkri
-nm
 nn.
-no
 no.
 noa
 nobar
@@ -46359,7 +46232,6 @@ npsn
 npwp
 nrima
 nrp
-nu
 nua
 nuahunai
 nuansa
@@ -46543,7 +46415,6 @@ nyungsung
 nyunyut
 nyureng
 nyut
-o
 oalah
 oase
 oasis
@@ -46654,11 +46525,9 @@ ogan
 ogel
 ogok
 ogonium
-oh
 ohidha
 ohm
 ohmmeter
-oi
 oikumene
 oikumenis
 oikumenisme
@@ -46796,7 +46665,6 @@ olivin
 olohok
 olok
 olongiva
-om
 oma
 oman
 omasum
@@ -46837,7 +46705,6 @@ omslah
 omstandigheid
 omvalopagus
 omzet
-on
 onagata
 onak
 onan
@@ -47318,9 +47185,6 @@ ozonisator
 ozonolisis
 ozonometer
 ozonoskop
-p
-p.
-pa
 paardekracht
 paban
 pabatangan
@@ -48530,7 +48394,6 @@ payu
 payudara
 payung
 payungan
-pb
 pbb
 pbi
 pbm
@@ -48538,7 +48401,6 @@ pbsi
 pbvsi
 pbwi
 p.d.
-pd
 pd.
 pda
 pdam
@@ -48550,7 +48412,6 @@ pdp
 pdt
 pdt.
 pdu
-pe
 peang
 peanggar
 pebalet
@@ -54316,13 +54177,11 @@ peziarah
 pezikir
 pezina
 pfn
-pg
 pgi
 pgkp
 pgri
 pgsd
 pgsi
-ph
 phh
 phi
 phk
@@ -54331,7 +54190,6 @@ photo
 photokopi
 phsi
 pi.
-pi
 piadah
 piagam
 piah
@@ -54692,7 +54550,6 @@ pjs.
 pjsi
 pjt
 p.k.
-pk
 pkb
 pki
 pkk
@@ -54863,7 +54720,6 @@ pluviometer
 pluviometri
 pluvioskop
 p.m.
-pm
 pma
 pmdk
 pmdn
@@ -54873,7 +54729,6 @@ pmk
 pmks
 pmp
 pmr
-pn
 pnbp
 pneumatifobia
 pneumatik
@@ -54890,7 +54745,6 @@ pnigofobia
 pnm
 pnpm
 pns
-po
 poal
 pobsi
 poces
@@ -55343,7 +55197,6 @@ poundal
 poya
 poyang
 poyon
-pp
 p.p.
 ppak
 ppat
@@ -55364,7 +55217,6 @@ ppln
 ppn
 ppns
 pprc
-pr
 praanggapan
 praba
 prabakti
@@ -55980,7 +55832,6 @@ psoriosis
 pssb
 pssi
 psti
-pt
 pt.
 pteridofita
 pteridofobia
@@ -55998,7 +55849,6 @@ ptomaina
 ptosis
 pts
 ptun
-pu
 puadai
 puah
 puak
@@ -56349,7 +56199,6 @@ pvc
 p.w.
 pwi
 pyu
-q
 qada
 qaf
 qalbu
@@ -56361,7 +56210,6 @@ qasar
 qasida
 qasidah
 qatar
-qi
 qiamulail
 qiraah
 qiraat
@@ -56373,10 +56221,7 @@ qurah
 quraisy
 qur'an
 qur'ani
-r
-r.
 r.a.
-ra
 rab
 raba
 rabaan
@@ -56964,7 +56809,6 @@ rdn
 rdpt
 rdpu
 rdtr
-re
 rea
 reagen
 reagensia
@@ -57755,7 +57599,6 @@ rezim
 rhk
 rho
 rhs.
-ri
 ria
 riadah
 riadat
@@ -57955,7 +57798,6 @@ rkask
 r.m.
 rms
 rna
-ro
 rob
 robeh
 robek
@@ -58134,14 +57976,12 @@ royalti
 royan
 royemen
 royer
-rp
 rpd
 rph
 r.r.
 rrc
 rri
 rrt
-rs
 rsb
 rsia
 rsj
@@ -58151,9 +57991,7 @@ rss
 rsud
 rsup
 rsvp
-rt
 rth
-ru
 rua
 ruadat
 ruah
@@ -58376,11 +58214,8 @@ ruyatulhilal
 ru’yatullāh
 ruyung
 ruyup
-rw
 rwanda
-s
 s.a.
-sa
 saadah
 saadat
 saadin
@@ -59302,7 +59137,6 @@ sbm
 sbn
 schadenfreude
 schutzstaffel
-sd
 s.d.
 sda
 sda.
@@ -59313,7 +59147,6 @@ sdr.
 sdri.
 s.ds.
 s.e.
-se
 seabad
 seabadi
 seabrek
@@ -61655,7 +61488,6 @@ sholehah
 s.hum.
 s.hut.
 si.
-si
 sia
 siaga
 siah
@@ -62401,7 +62233,6 @@ siwil
 siwo
 sizigi
 sjsn
-sk
 ska
 skabies
 skabiofobia
@@ -62537,7 +62368,6 @@ slowakia
 slta
 sltp
 sluri
-sm
 sma
 smb
 smdt
@@ -63064,7 +62894,6 @@ spuit
 sputnik
 sputum
 sql
-sr
 sragen
 sreg
 sregep
@@ -63350,7 +63179,6 @@ stupa
 stupika
 stupor
 stuwador
-su
 sua
 suabo
 suah
@@ -64111,9 +63939,6 @@ syuriah
 syuriken
 syuruk
 syuting
-t
-t.
-ta
 taajul
 taala
 taaruf
@@ -65145,11 +64970,9 @@ tayuban
 tayum
 tazir
 tazkirah
-tb
 tb.
 tbc
 tdl
-te
 tean
 teater
 teatrikal
@@ -68071,7 +67894,6 @@ thoriqot
 thr
 tht
 t.h.t.k.l.
-ti
 tiada
 tiaga
 tiam
@@ -68373,7 +68195,6 @@ tiupan
 tiwah
 tiwikrama
 tiwul
-tk
 tkhi
 tki
 tkit
@@ -68387,9 +68208,7 @@ tmesis
 tmii
 tmp
 tmt
-tn
 tni
-to
 toala
 toapekong
 toas
@@ -68707,7 +68526,6 @@ toyah
 toyoh
 toyopo
 toyor
-tp
 tpa
 tpihi
 tpk
@@ -69034,10 +68852,8 @@ tsar
 tsb
 tsunami
 tswana
-tt
 ttm
 tts
-tu
 tua
 tuah
 tuai
@@ -69410,12 +69226,9 @@ tuwuhan
 tuwung
 tuyuk
 tuyul
-tv
 tvri
 t.w.
 twit
-u
-ua
 uai
 uak
 uan
@@ -69425,7 +69238,6 @@ uap
 uapan
 uar
 uas
-ub
 u.b.
 uba
 ubah
@@ -69511,11 +69323,9 @@ ugu
 ugup
 ugut
 ugutan
-uh
 uhamka
 uho
 uhu
-ui
 uia
 uih
 uij
@@ -69537,7 +69347,6 @@ ujuk
 ujul
 ujung
 ujungan
-uk
 ukal
 ukare
 ukas
@@ -69640,7 +69449,6 @@ ulup
 ulur
 uluran
 ulutumba
-um
 uma
 umak
 umalasa
@@ -69700,7 +69508,6 @@ umumnya
 umun
 umur
 umyung
-un
 una
 unah
 unair
@@ -70049,7 +69856,6 @@ usus
 usut
 usutan
 uswah
-ut
 utalo
 utama
 utan
@@ -70080,7 +69886,6 @@ utuh
 utun
 utus
 utusan
-uu
 uuds
 uuhc
 uup
@@ -70106,7 +69911,6 @@ uzbek
 uzbekistan
 uzlah
 uzur
-v
 vadem
 vados
 vagilitas
@@ -70192,7 +69996,6 @@ vasopresin
 vaterit
 vatikan
 vatulabara
-ve
 veem
 vegan
 veganisme
@@ -70511,8 +70314,6 @@ vulvitis
 vulvodinia
 vuring
 vvip
-w
-wa
 waad
 waadah
 waadat
@@ -70831,8 +70632,6 @@ wayuh
 wazan
 wazari
 wazir
-wc
-we
 web
 weber
 webtun
@@ -70896,7 +70695,6 @@ wewangian
 wewara
 wewarah
 wewenang
-wh
 wiaoe
 wiau
 wib
@@ -71053,7 +70851,6 @@ woton
 wotu
 wow
 wowa
-wp
 wppe
 wput
 wrang
@@ -71110,7 +70907,6 @@ wuwungan
 wuwur
 wuyungan
 www
-x
 xantat
 xantelesma
 xantena
@@ -71142,7 +70938,6 @@ xeroser
 xerosis
 xerostomia
 xeroterm
-xi
 xifoid
 xilan
 xilarium
@@ -71165,8 +70960,6 @@ xilotomi
 xilulosa
 xirofobia
 xister
-y
-ya
 yacht
 yacung
 yad
@@ -71255,7 +71048,6 @@ yayasan
 yayu
 ybs.
 y.d.
-ye
 yehova
 yehuwa
 yei
@@ -71273,7 +71065,6 @@ yetfa
 yeti
 yetyet
 yeyunum
-yg
 yibungo
 yilalamo
 yilangu
@@ -71330,7 +71121,6 @@ ysh.
 yth.
 y.t.m
 yts.
-yu
 yuan
 yubil
 yubileum
@@ -71374,8 +71164,6 @@ yuwo
 yuyitsu
 yuyu
 yuyutsu
-z
-za
 zabad
 zabah
 zabaniah
@@ -71451,7 +71239,6 @@ zetabita
 zetter
 zeugma
 zhuhur
-zi
 ziadah
 ziarah
 ziarat
