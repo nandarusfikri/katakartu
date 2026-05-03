@@ -53,6 +53,7 @@ type GameState struct {
 	Leaderboard []PlayerState `json:"leaderboard"`
 	Timer       int           `json:"timer"`
 	Timestamp   int64         `json:"timestamp"`
+	Level       string        `json:"level"`
 }
 
 type WsMessage struct {
@@ -63,6 +64,7 @@ type WsMessage struct {
 type CreateRoomMsg struct {
 	Username string `json:"username"`
 	Duration int    `json:"duration"`
+	Level    string `json:"level"`
 }
 
 type JoinRoomMsg struct {

@@ -23,6 +23,7 @@ type Game struct {
 	PendingVote   *VoteSession
 	Timer         time.Time
 	TimerDuration int
+	Level         string
 	mu            sync.RWMutex
 }
 
@@ -48,6 +49,7 @@ func NewGame(roomCode string) *Game {
 		Deck:      NewDeck(),
 		Validator: nil,
 		LastPlay:  time.Time{},
+		Level:     "medium", // default level
 	}
 }
 
@@ -125,8 +127,16 @@ func (g *Game) PlayCards(playerID string, prefixCards []string, suffixCards []st
 
 	word := g.buildWord(prefixCards, suffixCards)
 
+	// Validasi panjang kata berdasarkan level
+	if g.Level == "easy" && len(word) < 4 {
+		return &PlayResult{Valid: false, Message: "jawaban salah"}
+	}
+	if g.Level == "medium" && len(word) < 5 {
+		return &PlayResult{Valid: false, Message: "jawaban salah"}
+	}
+
 	if !g.Validator.IsValid(word) {
-		return &PlayResult{Valid: false, Message: "kata tidak valid: " + word}
+		return &PlayResult{Valid: false, Message: "jawaban salah"}
 	}
 
 	player.Score += 10
@@ -225,6 +235,7 @@ func (g *Game) GetState() *types.GameState {
 		Leaderboard: g.getLeaderboardLocked(),
 		Timer:       g.GetTimeLeft(),
 		Timestamp:   g.LastPlay.Unix(),
+		Level:       g.Level,
 	}
 }
 

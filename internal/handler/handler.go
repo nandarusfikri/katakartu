@@ -63,6 +63,11 @@ func (h *Handler) handleCreateRoom(conn *websocket.Conn, payload interface{}) {
 	game := h.hub.GetGame(code)
 	if game != nil {
 		game.TimerDuration = req.Duration
+		if req.Level != "" {
+			game.Level = req.Level
+		} else {
+			game.Level = "medium" // default
+		}
 	}
 
 	log.Printf("Room created: %s by %s with duration %d seconds", code, req.Username, req.Duration)

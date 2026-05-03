@@ -12,6 +12,7 @@ let selectedSuffixCards = [];
 let selectedFromHandId = null;
 let handCardMap = {};
 let selectedDuration = 180;
+let selectedLevel = 'medium';
 let previousScores = {};
 
 function selectDuration(seconds) {
@@ -22,6 +23,23 @@ function selectDuration(seconds) {
             btn.classList.add('selected');
         }
     });
+}
+
+function selectLevel(level) {
+    selectedLevel = level;
+    document.querySelectorAll('.level-btn').forEach(btn => {
+        btn.classList.toggle('selected', btn.dataset.level === level);
+    });
+    showLevelInfo(level);
+}
+
+function showLevelInfo(level) {
+    const infoDiv = document.getElementById('level-info');
+    if (level === 'easy') {
+        infoDiv.innerHTML = 'Level Easy: Kata minimal 4 huruf.<br>Contoh: MAKA, BAPA, SARI';
+    } else {
+        infoDiv.innerHTML = 'Level Medium: Kata minimal 5 huruf.<br>Contoh: MAKAN, BAPAK, SAYUR';
+    }
 }
 
 function copyRoomCode() {
@@ -91,6 +109,12 @@ function handleMessage(msg) {
             if (gameState.status === 'playing') {
                 refreshGameState();
             }
+            // Display level
+            const levelText = gameState.level === 'easy' ? 'Easy' : 'Medium';
+            const lobbyLevel = document.getElementById('lobby-level');
+            const gameLevel = document.getElementById('game-level');
+            if (lobbyLevel) lobbyLevel.textContent = levelText;
+            if (gameLevel) gameLevel.textContent = levelText;
             break;
 
         case 'play_result':
@@ -142,7 +166,7 @@ function createRoom() {
     connect();
 
     ws.onopen = () => {
-        send({ type: 'create_room', payload: { username, duration: selectedDuration } });
+        send({ type: 'create_room', payload: { username, duration: selectedDuration, level: selectedLevel } });
     };
 }
 
@@ -356,6 +380,21 @@ function updateLobby() {
 
     document.getElementById('lobby-room-code').textContent = gameState.roomCode;
     document.getElementById('player-count').textContent = gameState.players.length;
+
+    // Display level in lobby
+    const levelText = gameState.level === 'easy' ? 'Easy' : 'Medium';
+    const lobbyLevel = document.getElementById('lobby-level');
+    if (lobbyLevel) lobbyLevel.textContent = levelText;
+    else {
+        // If level display doesn't exist yet, add it
+        const roomInfo = document.querySelector('.room-info');
+        if (roomInfo) {
+            const levelDiv = document.createElement('div');
+            levelDiv.className = 'room-level';
+            levelDiv.innerHTML = 'Level: <span id="lobby-level">' + levelText + '</span>';
+            roomInfo.appendChild(levelDiv);
+        }
+    }
 
     const list = document.getElementById('players-list');
     list.innerHTML = gameState.players.map(p => `

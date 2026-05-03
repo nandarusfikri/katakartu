@@ -40,6 +40,14 @@
                             <button class="duration-btn" data-duration="300" onclick="selectDuration(300)">5 Menit</button>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <label for="create-level">Level Permainan</label>
+                        <div class="level-options" id="level-options">
+                            <button class="level-btn" data-level="easy" onclick="selectLevel('easy')">Easy (Min. 4 huruf)</button>
+                            <button class="level-btn selected" data-level="medium" onclick="selectLevel('medium')">Medium (Min. 5 huruf)</button>
+                        </div>
+                        <div class="level-info" id="level-info"></div>
+                    </div>
                     <button class="btn btn-primary" onclick="createRoom()">
                         Buat Room
                     </button>
@@ -82,6 +90,9 @@
                                 </svg>
                             </button>
                         </div>
+                        <div class="room-level">
+                            Level: <span id="lobby-level">Medium</span>
+                        </div>
                     </div>
                     <div class="players-list">
                         <h3>Pemain (<span id="player-count">0</span>/6)</h3>
@@ -97,11 +108,14 @@
             </section>
 
             <section id="screen-game" class="screen">
-            <div class="game-area">
-                <div class="leaderboard-compact">
-                    <span class="trophy-icon">🏆</span>
-                    <div id="leaderboard-list" class="leaderboard-list-compact"></div>
-                </div>
+                <div class="game-area">
+                    <div class="game-level">
+                        Level: <span id="game-level">Medium</span>
+                    </div>
+                    <div class="leaderboard-compact">
+                        <span class="trophy-icon">🏆</span>
+                        <div id="leaderboard-list" class="leaderboard-list-compact"></div>
+                    </div>
 
                 <div id="vote-popup" class="vote-popup hidden">
                     <div class="vote-header">
