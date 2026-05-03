@@ -673,8 +673,8 @@ input[type="text"]::placeholder {
 }
 
 .answer-popup-content {
-    background: var(--card-bg);
-    border: 2px solid var(--success);
+    background: #4CAF50;
+    border: 2px solid #4CAF50;
     border-radius: 12px;
     padding: 12px 24px;
     text-align: center;
@@ -682,17 +682,18 @@ input[type="text"]::placeholder {
 }
 
 .answer-popup.error .answer-popup-content {
-    border-color: var(--error);
+    background: #D32F2F;
+    border-color: #D32F2F;
 }
 
 .answer-popup-text {
-    color: #000000;
+    color: #FFFFFF;
     font-size: 14px;
     font-weight: 700;
 }
 
 .answer-popup.error .answer-popup-text {
-    color: #000000;
+    color: #FFFFFF;
 }
 
 @keyframes popIn {
