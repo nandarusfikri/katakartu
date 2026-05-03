@@ -46,7 +46,7 @@ func NewGame(roomCode string) *Game {
 		Status:    "waiting",
 		Players:   make(map[string]*types.PlayerState),
 		MainCard:  "",
-		Deck:      NewDeck(),
+		Deck:      nil, // Will be initialized in Start() with level
 		Validator: nil,
 		LastPlay:  time.Time{},
 		Level:     "medium", // default level
@@ -87,12 +87,12 @@ func (g *Game) Start() error {
 
 	for _, p := range g.Players {
 		p.Score = 0
-		p.Cards = generatePlayerCards(10)
+		p.Cards = generatePlayerCards(10, g.Level)
 	}
 
-	g.MainCard = GenerateMainCard().Syllable
+	g.MainCard = GenerateMainCard(g.Level).Syllable
 
-	g.Deck = NewDeck()
+	g.Deck = NewDeck(g.Level)
 	g.Status = "playing"
 
 	return nil
@@ -328,8 +328,8 @@ func (g *Game) IsPlaying() bool {
 	return g.Status == "playing"
 }
 
-func generatePlayerCards(count int) []string {
-	deck := GetDeckSyllables()
+func generatePlayerCards(count int, level string) []string {
+	deck := GetDeckSyllables(level)
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(deck), func(i, j int) {
 		deck[i], deck[j] = deck[j], deck[i]
@@ -348,7 +348,7 @@ func (g *Game) CreateVote(initiatorID, initiatorName string) *VoteSession {
 		return nil
 	}
 
-	newCard := GenerateMainCard()
+	newCard := GenerateMainCard(g.Level)
 	g.PendingVote = &VoteSession{
 		InitiatorID:   initiatorID,
 		InitiatorName: initiatorName,

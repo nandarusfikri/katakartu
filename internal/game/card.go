@@ -18,8 +18,8 @@ type Deck struct {
 	Cards []Card
 }
 
-func NewDeck() *Deck {
-	syllables := loadDeckFromFile()
+func NewDeck(level string) *Deck {
+	syllables := loadDeckFromFile(level)
 	rand.Seed(time.Now().UnixNano())
 	rand.Shuffle(len(syllables), func(i, j int) {
 		syllables[i], syllables[j] = syllables[j], syllables[i]
@@ -46,15 +46,30 @@ func (d *Deck) Remaining() int {
 	return len(d.Cards)
 }
 
-func loadDeckFromFile() []string {
+func loadDeckFromFile(level string) []string {
 	baseDir, err := os.Getwd()
 	if err != nil {
 		baseDir = "."
 	}
-	deckPath := filepath.Join(baseDir, "data", "deck.txt")
+
+	// Determine deck file based on level
+	deckFile := "deck.txt"
+	if level == "medium" {
+		deckFile = "deck_medium.txt"
+	}
+	deckPath := filepath.Join(baseDir, "data", deckFile)
 	file, err := os.Open(deckPath)
 	if err != nil {
-		return generateFallbackSyllables()
+		// Fallback to deck.txt if level-specific file not found
+		if level == "medium" {
+			deckPath = filepath.Join(baseDir, "data", "deck.txt")
+			file, err = os.Open(deckPath)
+			if err != nil {
+				return generateFallbackSyllables()
+			}
+		} else {
+			return generateFallbackSyllables()
+		}
 	}
 	defer file.Close()
 
@@ -62,7 +77,8 @@ func loadDeckFromFile() []string {
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
-		if line == "" {
+		// Skip empty lines and comments
+		if line == "" || strings.HasPrefix(line, "#") {
 			continue
 		}
 		parts := strings.Split(line, ",")
@@ -72,6 +88,10 @@ func loadDeckFromFile() []string {
 				allSyllables = append(allSyllables, strings.ToUpper(syllable))
 			}
 		}
+	}
+
+	if err := scanner.Err(); err != nil {
+		return generateFallbackSyllables()
 	}
 
 	if len(allSyllables) == 0 {
@@ -90,8 +110,8 @@ func generateFallbackSyllables() []string {
 	}
 }
 
-func GenerateMainCard() Card {
-	pool := loadDeckFromFile()
+func GenerateMainCard(level string) Card {
+	pool := loadDeckFromFile(level)
 	if len(pool) == 0 {
 		return Card{Syllable: "MA"}
 	}
@@ -100,6 +120,6 @@ func GenerateMainCard() Card {
 	return Card{Syllable: pool[idx]}
 }
 
-func GetDeckSyllables() []string {
-	return loadDeckFromFile()
+func GetDeckSyllables(level string) []string {
+	return loadDeckFromFile(level)
 }
