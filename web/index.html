@@ -97,55 +97,54 @@
             </section>
 
             <section id="screen-game" class="screen">
-                <div class="game-area">
-                    <div class="room-timer">
-                        <span class="timer-label">Waktu:</span>
-                        <span id="timer-display">5:00</span>
+            <div class="game-area">
+                <div class="leaderboard-compact">
+                    <span class="trophy-icon">🏆</span>
+                    <div id="leaderboard-list" class="leaderboard-list-compact"></div>
+                </div>
+
+                <div id="vote-popup" class="vote-popup hidden">
+                    <div class="vote-header">
+                        <span class="vote-title">Voting Ganti Main Card</span>
+                        <span class="vote-timer" id="vote-timer">5</span>
+                    </div>
+                    <div class="vote-info">
+                        <span id="vote-initiator"></span> ingin ganti main card
+                    </div>
+                    <div class="vote-progress">
+                        <span class="vote-approve" id="vote-approve">✓ 0</span>
+                        <span class="vote-reject" id="vote-reject">✗ 0</span>
+                    </div>
+                    <div class="vote-buttons">
+                        <button class="btn btn-approve" onclick="submitVote(true)">Approve</button>
+                        <button class="btn btn-reject" onclick="submitVote(false)">Reject</button>
+                    </div>
+                </div>
+
+                <div class="word-preview">
+                    <span class="preview-prefix" id="preview-prefix"></span>
+                    <span class="preview-main" id="main-card">--</span>
+                    <span class="preview-suffix" id="preview-suffix"></span>
+                </div>
+
+                <div class="drop-zones">
+                    <div class="drop-zone prefix-zone" id="prefix-zone" data-zone="prefix">
+                        <span class="drop-label">DEPAN</span>
                     </div>
 
-                    <div class="leaderboard-compact">
-                        <span class="trophy-icon">🏆</span>
-                        <div id="leaderboard-list" class="leaderboard-list-compact"></div>
+                    <div class="main-card-display">
+
+                        <div class="room-timer">
+                            <span id="timer-display">5:00</span>
+                        </div>
+                        <span class="label">Main Card</span>
+                        <div id="main-card-display" class="card-large">--</div>
                     </div>
 
-                    <div id="vote-popup" class="vote-popup hidden">
-                        <div class="vote-header">
-                            <span class="vote-title">Voting Ganti Main Card</span>
-                            <span class="vote-timer" id="vote-timer">5</span>
-                        </div>
-                        <div class="vote-info">
-                            <span id="vote-initiator"></span> ingin ganti main card
-                        </div>
-                        <div class="vote-progress">
-                            <span class="vote-approve" id="vote-approve">✓ 0</span>
-                            <span class="vote-reject" id="vote-reject">✗ 0</span>
-                        </div>
-                        <div class="vote-buttons">
-                            <button class="btn btn-approve" onclick="submitVote(true)">Approve</button>
-                            <button class="btn btn-reject" onclick="submitVote(false)">Reject</button>
-                        </div>
+                    <div class="drop-zone suffix-zone" id="suffix-zone" data-zone="suffix">
+                        <span class="drop-label">BELAKANG</span>
                     </div>
-
-                    <div class="word-preview">
-                        <span class="preview-prefix" id="preview-prefix"></span>
-                        <span class="preview-main" id="main-card">--</span>
-                        <span class="preview-suffix" id="preview-suffix"></span>
-                    </div>
-
-                    <div class="drop-zones">
-                        <div class="drop-zone prefix-zone" id="prefix-zone" data-zone="prefix">
-                            <span class="drop-label">DEPAN</span>
-                        </div>
-
-                        <div class="main-card-display">
-                            <span class="label">Main Card</span>
-                            <div id="main-card-display" class="card-large">--</div>
-                        </div>
-
-                        <div class="drop-zone suffix-zone" id="suffix-zone" data-zone="suffix">
-                            <span class="drop-label">BELAKANG</span>
-                        </div>
-                    </div>
+                </div>
 
                     <div class="actions">
                         <button class="btn btn-secondary btn-sm" onclick="drawCard()">
