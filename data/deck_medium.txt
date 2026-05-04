@@ -4,6 +4,30 @@ U, U, U, U, U, U
 E, E, E, E, E
 O, O, O, O
 
+
+B, B, B
+C, C, C
+D, D, D
+F, F, F
+G, G, G
+H, H, H
+J, J, J
+K, K, K
+L, L, L
+M, M, M
+N, N, N
+P, P, P
+Q
+R, R, R
+S, S, S
+T, T, T
+V, V, V
+W, W, W
+X, X
+Y, Y, Y
+Z
+
+
 ME, ME, ME, ME, ME
 DI, DI, DI, DI, DI
 BER, BER, BER, BER
